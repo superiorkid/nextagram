@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { TLogin, loginSchama } from "@/lib/validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     handleSubmit,
     register,
@@ -26,16 +26,24 @@ const LoginForm = () => {
   });
 
   const onLoginSubmit = (values: TLogin) => {
-    startTransition(() => {
-      signIn("credentials", { ...values, redirect: false })
-        .then((response) => {
-          toast.success("Login Successfully");
+    setIsLoading((loading) => true);
+    signIn("credentials", {
+      ...values,
+      redirect: false,
+    })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("Login Failed");
+        }
+
+        if (callback?.ok && !callback.error) {
+          toast.success("Logged in");
           router.push("/");
-        })
-        .catch((error) => {
-          toast.error("Login failed");
-        });
-    });
+        }
+      })
+      .finally(() => {
+        setIsLoading((loading) => false);
+      });
   };
 
   return (
@@ -43,11 +51,11 @@ const LoginForm = () => {
       <div className="space-y-0.5">
         <input
           type="text"
-          disabled={isPending}
+          disabled={isLoading}
           placeholder="Email"
           className={cn(
             "auth-input",
-            isPending && "text-gray-300",
+            isLoading && "text-gray-300",
             errors.email && "border-rose-500"
           )}
           {...register("email")}
@@ -58,11 +66,11 @@ const LoginForm = () => {
       <div className="space-y-0.5">
         <input
           type="password"
-          disabled={isPending}
+          disabled={isLoading}
           placeholder="Password"
           className={cn(
             "auth-input",
-            isPending && "text-gray-300",
+            isLoading && "text-gray-300",
             errors.password && "border-rose-500"
           )}
           {...register("password")}
@@ -72,13 +80,13 @@ const LoginForm = () => {
 
       <button
         type="submit"
-        disabled={isPending}
+        disabled={isLoading}
         className={cn(
           "border bg-sky-500 text-white font-semibold w-full rounded-lg py-1.5 text-sm",
-          isPending && "bg-gray-300"
+          isLoading && "bg-gray-300"
         )}
       >
-        {isPending ? "..." : "Log in"}
+        {isLoading ? "..." : "Log in"}
       </button>
     </form>
   );
