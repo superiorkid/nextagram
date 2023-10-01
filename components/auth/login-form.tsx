@@ -40,21 +40,39 @@ const LoginForm = () => {
 
   return (
     <form className="space-y-2" onSubmit={handleSubmit(onLoginSubmit)}>
-      <input
-        type="text"
-        placeholder="Email"
-        className={cn("auth-input", isPending && "text-gray-300")}
-        {...register("email")}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className={cn("auth-input", isPending && "text-gray-300")}
-        {...register("password")}
-      />
+      <div className="space-y-0.5">
+        <input
+          type="text"
+          disabled={isPending}
+          placeholder="Email"
+          className={cn(
+            "auth-input",
+            isPending && "text-gray-300",
+            errors.email && "border-rose-500"
+          )}
+          {...register("email")}
+        />
+        <p className="text-xs text-rose-500 pl-1">{errors.email?.message}</p>
+      </div>
+
+      <div className="space-y-0.5">
+        <input
+          type="password"
+          disabled={isPending}
+          placeholder="Password"
+          className={cn(
+            "auth-input",
+            isPending && "text-gray-300",
+            errors.password && "border-rose-500"
+          )}
+          {...register("password")}
+        />
+        <p className="text-xs text-rose-500 pl-1">{errors.password?.message}</p>
+      </div>
 
       <button
         type="submit"
+        disabled={isPending}
         className={cn(
           "border bg-sky-500 text-white font-semibold w-full rounded-lg py-1.5 text-sm",
           isPending && "bg-gray-300"

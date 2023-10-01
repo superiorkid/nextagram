@@ -44,31 +44,68 @@ const RegisterForm = () => {
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onRegisterSubmit)}>
       <div className="space-y-2">
-        <input
-          disabled={isPending}
-          placeholder="Email"
-          className={cn("auth-input", isPending && "text-gray-300")}
-          {...register("email")}
-        />
-        <input
-          disabled={isPending}
-          placeholder="Full Name"
-          className={cn("auth-input", isPending && "text-gray-300")}
-          {...register("fullName")}
-        />
-        <input
-          disabled={isPending}
-          placeholder="Username"
-          className={cn("auth-input", isPending && "text-gray-300")}
-          {...register("username")}
-        />
-        <input
-          disabled={isPending}
-          type="password"
-          placeholder="Password"
-          className={cn("auth-input", isPending && "text-gray-300")}
-          {...register("password")}
-        />
+        <div className="space-y-0.5">
+          <input
+            disabled={isPending}
+            placeholder="Email"
+            className={cn(
+              "auth-input",
+              isPending && "text-gray-300",
+              errors.email && "border-rose-500"
+            )}
+            {...register("email")}
+          />
+          <p className="text-xs text-rose-500 pl-1">{errors.email?.message}</p>
+        </div>
+
+        <div className="space-y-0.5">
+          <input
+            disabled={isPending}
+            placeholder="Full Name"
+            className={cn(
+              "auth-input",
+              isPending && "text-gray-300",
+              errors.fullName && "border-rose-500"
+            )}
+            {...register("fullName")}
+          />
+          <p className="text-xs text-rose-500 pl-1">
+            {errors.fullName?.message}
+          </p>
+        </div>
+
+        <div className="space-y-0.5">
+          <input
+            disabled={isPending}
+            placeholder="Username"
+            className={cn(
+              "auth-input",
+              isPending && "text-gray-300",
+              errors.username && "border-rose-500"
+            )}
+            {...register("username")}
+          />
+          <p className="text-xs text-rose-500 pl-1">
+            {errors.username?.message}
+          </p>
+        </div>
+
+        <div className="space-y-0.5">
+          <input
+            disabled={isPending}
+            type="password"
+            placeholder="Password"
+            className={cn(
+              "auth-input",
+              isPending && "text-gray-300",
+              errors.password && "border-rose-500"
+            )}
+            {...register("password")}
+          />
+          <p className="text-xs text-rose-500 pl-1">
+            {errors.password?.message}
+          </p>
+        </div>
       </div>
 
       <div className="text-xs text-center space-y-2.5 text-gray-500 my-3">
