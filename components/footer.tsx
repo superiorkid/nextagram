@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="h-[10dvh] space-y-3">
+    <footer className="h-[10dvh] space-y-3 mt-14">
       <div className="flex flex-wrap text-xs justify-center space-x-4 md:space-x-0 gap-y-1 md:justify-between text-gray-500">
         <Link href="#meta">Meta</Link>
         <Link href="#about">About</Link>

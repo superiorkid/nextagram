@@ -5,11 +5,7 @@ import Lottie from "lottie-react";
 import animation from "../../public/assets/auth-lottie.json";
 
 const AuthAnimation = () => {
-  return (
-    <div>
-      <Lottie animationData={animation} loop={true} />
-    </div>
-  );
+  return <Lottie animationData={animation} loop={true} alt="auth animation" />;
 };
 
 export default AuthAnimation;

@@ -9,9 +9,25 @@ const Login = () => {
     <React.Fragment>
       <Logo />
       <LoginForm />
-      <hr className="my-5" />
+      {/* <hr className="my-5" /> */}
+
+      <div className="relative my-5">
+        <div
+          className="
+                absolute 
+                inset-0 
+                flex 
+                items-center
+              "
+        >
+          <div className="w-full border-t border-gray-300" />
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="bg-white px-2 text-gray-500 font-bold">OR</span>
+        </div>
+      </div>
+
       <SocialLogin
-      
         label="Log in with Discord"
         provider="discord"
         className="font-bold text-[#5562EA] mb-4 text-sm tracking-wide"

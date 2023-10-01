@@ -1,36 +1,73 @@
-import React from "react";
+"use client";
+
+import { userRegistration } from "@/_actions/auth.action";
+import { TRegister, registerSchema } from "@/lib/validations/auth.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const RegisterForm = () => {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm<TRegister>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      email: "",
+      fullName: "",
+      password: "",
+      username: "",
+    },
+  });
+
+  const onRegisterSubmit = (values: TRegister) => {
+    startTransition(async () => {
+      await userRegistration(values)
+        .then((response) => {
+          reset();
+          toast.success("Register successfully");
+          router.push("/auth?variant=login");
+        })
+        .catch((error) => {
+          toast.error("Error while register");
+        });
+    });
+  };
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit(onRegisterSubmit)}>
       <div className="space-y-2">
         <input
-          type="text"
-          name="email"
-          id="email"
+          disabled={isPending}
           placeholder="Email"
-          className="auth-input"
+          className={cn("auth-input", isPending && "text-gray-300")}
+          {...register("email")}
         />
         <input
-          type="text"
-          name="email"
-          id="email"
+          disabled={isPending}
           placeholder="Full Name"
-          className="auth-input"
+          className={cn("auth-input", isPending && "text-gray-300")}
+          {...register("fullName")}
         />
         <input
-          type="text"
-          name="email"
-          id="email"
+          disabled={isPending}
           placeholder="Username"
-          className="auth-input"
+          className={cn("auth-input", isPending && "text-gray-300")}
+          {...register("username")}
         />
         <input
+          disabled={isPending}
           type="password"
-          name="password"
-          id="password"
           placeholder="Password"
-          className="auth-input"
+          className={cn("auth-input", isPending && "text-gray-300")}
+          {...register("password")}
         />
       </div>
 
@@ -49,9 +86,13 @@ const RegisterForm = () => {
 
       <button
         type="submit"
-        className="border bg-sky-500 text-white font-semibold w-full rounded-lg py-1.5 text-sm"
+        disabled={isPending}
+        className={cn(
+          "border bg-sky-500 text-white font-semibold w-full rounded-lg py-1.5 text-sm",
+          isPending && "bg-gray-300"
+        )}
       >
-        Sign up
+        {isPending ? "..." : "Sign up"}
       </button>
     </form>
   );

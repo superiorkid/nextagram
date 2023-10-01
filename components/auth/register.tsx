@@ -15,7 +15,16 @@ const Register = () => {
         provider="discord"
         className="border rounded-lg bg-[#5562EA] text-white font-medium text-sm py-1.5"
       />
-      <hr className="my-5" />
+
+      <div className="relative my-5">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300" />
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="bg-white px-2 text-gray-500 font-bold">OR</span>
+        </div>
+      </div>
+
       <RegisterForm />
     </React.Fragment>
   );
