@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: { serverActions: true },
   images: {
-    domains: ["ik.imagekit.io"],
+    domains: ["ik.imagekit.io", "images.unsplash.com"],
   },
 };
 
