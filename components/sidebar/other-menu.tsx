@@ -18,7 +18,7 @@ const OtherMenu = () => {
         <RxHamburgerMenu className="w-7 h-7 inline mr-2.5 " />
         More
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="top" className="w-[300px]">
+      <DropdownMenuContent side="top" className="w-[20dvw] mx-3">
         <DropdownMenuItem className="text-base hover:font-bold hover:bg-gray-100 py-2.5">
           <GoGear className="w-5 h-5 inline mr-2.5" />
           Settings

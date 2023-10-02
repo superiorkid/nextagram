@@ -8,9 +8,7 @@ interface Props {
 
 function Container({ children, className }: Props) {
   return (
-    <div className={cn(`max-w-screen-md mx-auto min-h-screen ${className}`)}>
-      {children}
-    </div>
+    <div className={cn(`max-w-screen-md mx-auto ${className}`)}>{children}</div>
   );
 }
 

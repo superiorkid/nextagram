@@ -1,0 +1,49 @@
+import Link  from "next/link";
+import React from "react";
+import { FiCompass } from "react-icons/fi";
+import { GoHomeFill, GoSearch, GoPlusCircle } from "react-icons/go";
+import { RxAvatar } from "react-icons/rx";
+
+const Menu = () => {
+  return (
+    <nav className="flex flex-col space-y-3">
+      <Link
+        href="/"
+        className="text-base font-bold hover:bg-gray-100 py-2.5 px-3 rounded-md"
+      >
+        <GoHomeFill className="w-6 h-6 inline mr-2.5" />
+        Home
+      </Link>
+      <Link
+        href="#search"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
+      >
+        <GoSearch className="w-6 h-6 inline mr-2.5" />
+        Search
+      </Link>
+      <Link
+        href="#explore"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
+      >
+        <FiCompass className="w-6 h-6 inline mr-2.5" />
+        Explore
+      </Link>
+      <Link
+        href="#create-pop-up"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
+      >
+        <GoPlusCircle className="w-6 h-6 inline mr-2.5" />
+        Create
+      </Link>
+      <Link
+        href="#profile"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
+      >
+        <RxAvatar className="w-6 h-6 inline mr-2.5" />
+        Profile
+      </Link>
+    </nav>
+  );
+};
+
+export default Menu;
