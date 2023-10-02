@@ -7,7 +7,7 @@ import { FaDiscord } from "react-icons/fa6";
 const Login = () => {
   return (
     <React.Fragment>
-      <Logo />
+      <Logo className="h-[44px] mt-5 mb-7" />
       <LoginForm />
       {/* <hr className="my-5" /> */}
 

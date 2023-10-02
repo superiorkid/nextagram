@@ -1,10 +1,14 @@
 import Image from "next/image";
-
 import nextagramLogo from "../public/assets/nextagram_logo.svg";
+import { cn } from "@/lib/utils";
 
-const Logo = () => {
+interface Props {
+  className?: string;
+}
+
+const Logo = ({ className }: Props) => {
   return (
-    <div className="relative h-[46px] w-auto my-4">
+    <div className={cn(`relative w-auto ${className}`)}>
       <Image
         fill
         priority

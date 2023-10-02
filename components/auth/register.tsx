@@ -6,7 +6,7 @@ import RegisterForm from "./register-form";
 const Register = () => {
   return (
     <React.Fragment>
-      <Logo />
+      <Logo className="h-[44px] mt-5 mb-7" />
       <p className="text-lg font-bold text-gray-500 text-center mb-3 leading-tight">
         Sign up to see photos from your friends.
       </p>
