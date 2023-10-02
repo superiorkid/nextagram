@@ -18,7 +18,7 @@ const MainLayuot = ({ children }: Props) => {
 
         <OtherMenu />
       </aside>
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 min-w-0 overflow-auto">{children}</main>
     </div>
   );
 };
