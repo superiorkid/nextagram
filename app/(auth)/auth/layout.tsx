@@ -9,7 +9,7 @@ interface Props {
 
 const AuthLayout = ({ children }: Props) => {
   return (
-    <Container className="flex flex-col pt-10">
+    <Container className="flex flex-col pt-10 min-h-screen">
       <div className="flex-1 flex md:space-x-12 items-center px-14 md:px-3">
         <div className="flex-1 hidden md:flex">
           <AuthAnimation />

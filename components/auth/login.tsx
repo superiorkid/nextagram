@@ -1,8 +1,7 @@
-import React from "react";
-import Logo from "@/components/logo";
 import LoginForm from "@/components/auth/login-form";
 import SocialLogin from "@/components/auth/social-login";
-import { FaDiscord } from "react-icons/fa6";
+import Logo from "@/components/logo";
+import React from "react";
 
 const Login = () => {
   return (
@@ -12,14 +11,7 @@ const Login = () => {
       {/* <hr className="my-5" /> */}
 
       <div className="relative my-5">
-        <div
-          className="
-                absolute 
-                inset-0 
-                flex 
-                items-center
-              "
-        >
+        <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-300" />
         </div>
         <div className="relative flex justify-center text-sm">

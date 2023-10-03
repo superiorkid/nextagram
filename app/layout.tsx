@@ -1,4 +1,4 @@
-import ToastProvider from "@/toast.provider";
+import ToastProvider from "@/providers/toast.provider";
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
