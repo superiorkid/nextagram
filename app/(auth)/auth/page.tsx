@@ -1,7 +1,9 @@
+import getCurrentUser from "@/_actions/get-current-user";
 import Login from "@/components/auth/login";
 import Register from "@/components/auth/register";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 interface Props {
@@ -10,7 +12,13 @@ interface Props {
   };
 }
 
-const AuthPage = ({ searchParams: { variant } }: Props) => {
+const AuthPage = async ({ searchParams: { variant } }: Props) => {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser) {
+    redirect("/");
+  }
+
   return (
     <React.Fragment>
       <div className="border border-gray-300 pt-7 pb-6 px-10 mb-3">
