@@ -6,6 +6,7 @@ import React from "react";
 import { FaDiscord } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { VscLoading } from "react-icons/vsc";
 
 interface Props {
   className?: string;
@@ -19,7 +20,9 @@ const SocialLogin = ({ className, provider, label }: Props) => {
   const handleSocialLogin = (provider: string) => {
     signIn(provider, { redirect: false })
       .then((callback) => {
-        toast.success("Logged in");
+        toast(`Redirect to ${provider}`, {
+          icon: <VscLoading className="animate-spin" />,
+        });
         router.refresh();
       })
       .catch((error) => {

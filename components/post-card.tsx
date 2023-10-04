@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { GoKebabHorizontal } from "react-icons/go";
 import ActionButtons from "./action-buttons";
-import { cn } from "@/lib/utils";
 import Caption from "./caption";
 import CommentForm from "./comment-form";
 
@@ -37,6 +36,7 @@ const PostCard = () => {
             src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
             alt="post photo"
             className="object-contain rounded-sm"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="text-sm px-2 md:px-0">

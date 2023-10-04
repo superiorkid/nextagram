@@ -12,7 +12,7 @@ const Caption = () => {
 
   return (
     <React.Fragment>
-      <p className={cn(!seeMore && "line-clamp-1")}>
+      <p className={cn("[text-wrap:balance]", !seeMore && "line-clamp-1")}>
         <span className="font-bold mr-2">hanifamr_</span>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam quas,
         facilis suscipit iure, natus nulla fugiat eligendi tempora aut

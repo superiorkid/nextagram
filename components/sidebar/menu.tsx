@@ -1,10 +1,16 @@
-import Link  from "next/link";
+import { User } from "@prisma/client";
+import Link from "next/link";
 import React from "react";
 import { FiCompass } from "react-icons/fi";
 import { GoHomeFill, GoSearch, GoPlusCircle } from "react-icons/go";
 import { RxAvatar } from "react-icons/rx";
+import Image from "next/image";
 
-const Menu = () => {
+interface Props {
+  currentUser: User | null;
+}
+
+const Menu = ({ currentUser }: Props) => {
   return (
     <nav className="flex flex-col space-y-3">
       <Link
@@ -15,7 +21,7 @@ const Menu = () => {
         Home
       </Link>
       <Link
-        href="#search"
+        href="/search"
         className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
       >
         <GoSearch className="w-6 h-6 inline mr-2.5" />
@@ -37,10 +43,22 @@ const Menu = () => {
       </Link>
       <Link
         href="#profile"
-        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md flex items-center"
       >
-        <RxAvatar className="w-6 h-6 inline mr-2.5" />
-        Profile
+        {currentUser?.image ? (
+          <div className="relative h-6 w-6 mr-2.5">
+            <Image
+              fill
+              src={currentUser.image}
+              alt={`${currentUser.name} photo`}
+              className="object-cover rounded-full"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        ) : (
+          <RxAvatar className="w-6 h-6 inline mr-2.5" />
+        )}
+        <span>Profile</span>
       </Link>
     </nav>
   );

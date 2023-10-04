@@ -1,19 +1,32 @@
 import React from "react";
 import Image from "next/image";
+import { User } from "@prisma/client";
+import { RxAvatar } from "react-icons/rx";
 
-const UserCard = () => {
+interface Props {
+  user: User;
+}
+
+const UserCard = ({ user }: Props) => {
   return (
     <div className="flex justify-between items-center">
       <div className="flex space-x-2.5 items-center">
-        <Image
-          src="https://images.unsplash.com/photo-1514136649217-b627b4b9cfb2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80"
-          alt="profile photo"
-          height={300}
-          width={300}
-          className="object-cover rounded-full w-12 h-12"
-        />
+        {user.image ? (
+          <div className="relative w-12 h-12">
+            <Image
+              fill
+              src={user?.image!}
+              alt="profile photo"
+              className="object-cover rounded-full"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        ) : (
+          <RxAvatar className="w-12 h-12" />
+        )}
+
         <div className="text-sm">
-          <p className="font-bold tracking-wide">nothingToSay</p>
+          <p className="font-bold tracking-wide">{user.name}</p>
           <p className="text-gray-500 text-xs">Followed by _danu.ar</p>
         </div>
       </div>

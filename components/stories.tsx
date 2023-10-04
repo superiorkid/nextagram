@@ -36,6 +36,7 @@ const Stories = () => {
                 src="https://images.unsplash.com/photo-1514136649217-b627b4b9cfb2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80"
                 alt="photo profile"
                 className="object-cover rounded-full ring-2 ring-pink-500 ring-offset-2 self-center"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <p className="text-xs">wina_safitri11</p>
