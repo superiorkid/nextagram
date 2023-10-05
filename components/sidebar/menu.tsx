@@ -2,9 +2,10 @@ import { User } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import { FiCompass } from "react-icons/fi";
-import { GoHomeFill, GoSearch, GoPlusCircle } from "react-icons/go";
+import { GoHomeFill, GoSearch } from "react-icons/go";
 import { RxAvatar } from "react-icons/rx";
 import Image from "next/image";
+import CreateNewPostModal from "@/components/create-new-post-modal";
 
 interface Props {
   currentUser: User | null;
@@ -34,13 +35,9 @@ const Menu = ({ currentUser }: Props) => {
         <FiCompass className="w-6 h-6 inline mr-2.5" />
         Explore
       </Link>
-      <Link
-        href="#create-pop-up"
-        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
-      >
-        <GoPlusCircle className="w-6 h-6 inline mr-2.5" />
-        Create
-      </Link>
+
+      <CreateNewPostModal currentUser={currentUser} />
+
       <Link
         href="#profile"
         className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md flex items-center"

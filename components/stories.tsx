@@ -39,7 +39,7 @@ const Stories = () => {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
-            <p className="text-xs">wina_safitri11</p>
+            <p className="text-xs">Fatim</p>
           </div>
         </SwiperSlide>
       ))}

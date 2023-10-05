@@ -5,12 +5,10 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { getSearchUsers } from "@/_actions/user.action";
 import { User } from "@prisma/client";
 import UserCard from "@/components/user-card";
-import { VscLoading } from "react-icons/vsc";
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState<string>();
   const [results, setResults] = useState<User[]>([]);
-  const [isSearching, setIsSearching] = useState<boolean>(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,12 +18,10 @@ function Search() {
   useEffect(() => {
     const searchHN = async () => {
       let results: User[] | [] = [];
-      setIsSearching((iseSearching) => true);
       if (debouncedSearchTerm) {
         const data = await getSearchUsers(debouncedSearchTerm);
         results = data || [];
       }
-      setIsSearching((isSearching) => false);
       setResults((res) => results);
     };
 

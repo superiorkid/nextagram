@@ -43,5 +43,31 @@ model User {
   password      String?
   role          Role      @default(USER)
   image         String?
-  accounts      Account[]
+
+  accounts Account[]
+  posts    Post[]
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  caption   String
+  location  String?
+  images    Image[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String?
+}
+
+model Image {
+  id         String   @id @default(cuid())
+  url        String
+  size       Int
+  uploadedAt DateTime @default(now())
+  metadata   String?
+  path       String?
+  pathOrder  String[]
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId     String
 }
