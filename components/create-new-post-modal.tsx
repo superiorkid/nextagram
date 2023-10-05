@@ -18,22 +18,28 @@ import UploadImageDropzone from "./upload-image-dropzone";
 
 import "swiper/css";
 import ImagePreview from "./imge-preview";
+import { useForm } from "react-hook-form";
 
 interface Props {
   currentUser: User | null;
+  variant: "MOBILE" | "DESKTOP";
 }
 
-function CreateNewPostModal({ currentUser }: Props) {
+function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
   const [files, setFiles] = useState<(File & { preview: string })[]>();
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
-      <DialogTrigger asChild>
-        <button className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md text-left outline-none">
-          <GoPlusCircle className="w-6 h-6 inline mr-2.5" />
-          Create
-        </button>
+      <DialogTrigger asChild={variant === "DESKTOP"}>
+        {variant === "MOBILE" ? (
+          <GoPlusCircle className="w-6 h-6" />
+        ) : (
+          <button className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md text-left outline-none">
+            <GoPlusCircle className="w-6 h-6 inline mr-2.5" />
+            Create
+          </button>
+        )}
       </DialogTrigger>
 
       <DialogContent
@@ -43,6 +49,7 @@ function CreateNewPostModal({ currentUser }: Props) {
           className="w-full"
           onSubmit={(event) => {
             setOpenModal((modal) => false);
+            setFiles((files) => []);
           }}
         >
           <DialogHeader className="px-3 py-2.5">
@@ -50,7 +57,10 @@ function CreateNewPostModal({ currentUser }: Props) {
               <button
                 type="button"
                 aria-label="close modal"
-                onClick={(event) => setOpenModal((modal) => false)}
+                onClick={(event) => {
+                  setOpenModal((modal) => false);
+                  setFiles((files) => []);
+                }}
               >
                 <FiArrowLeft className="w-6 h-6" />
               </button>

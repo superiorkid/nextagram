@@ -1,10 +1,10 @@
+import getCurrentUser from "@/_actions/get-current-user";
 import Logo from "@/components/logo";
+import MobileMenu from "@/components/mobile-menu";
 import Menu from "@/components/sidebar/menu";
 import OtherMenu from "@/components/sidebar/other-menu";
+import { User } from "@prisma/client";
 import React from "react";
-import getCurrentUser from "@/_actions/get-current-user";
-import Link from "next/link";
-import MobileMenu from "@/components/mobile-menu";
 
 interface Props {
   children: React.ReactNode;
@@ -27,7 +27,7 @@ const MainLayuot = async ({ children }: Props) => {
 
       {/*mobile menu*/}
       <div className="flex bg-white items-center fixed bottom-0 w-full px-9 lg:hidden border-t shadow-md">
-        <MobileMenu />
+        <MobileMenu currentUser={currentUser} />
       </div>
     </div>
   );

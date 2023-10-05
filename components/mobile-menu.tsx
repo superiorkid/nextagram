@@ -3,8 +3,14 @@ import Link from "next/link";
 import { GoHomeFill, GoPlusCircle, GoSearch } from "react-icons/go";
 import { FiCompass } from "react-icons/fi";
 import { RxAvatar } from "react-icons/rx";
+import { User } from "@prisma/client";
+import CreateNewPostModal from "./create-new-post-modal";
 
-function MobileMenu() {
+interface Props {
+  currentUser: User | null;
+}
+
+function MobileMenu({ currentUser }: Props) {
   return (
     <div className="flex justify-between w-full py-3">
       <Link href="/">
@@ -16,9 +22,9 @@ function MobileMenu() {
       <Link href="#">
         <FiCompass className="w-7 h-7 " />
       </Link>
-      <Link href="#">
-        <GoPlusCircle className="w-7 h-7" />
-      </Link>
+
+      <CreateNewPostModal currentUser={currentUser} variant="MOBILE" />
+
       <Link href="#">
         <RxAvatar className="w-7 h-7" />
       </Link>
