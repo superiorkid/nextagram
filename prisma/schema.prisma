@@ -62,12 +62,9 @@ model Post {
 
 model Image {
   id         String   @id @default(cuid())
-  url        String
-  size       Int
+  name       String   @unique
+  path       String
   uploadedAt DateTime @default(now())
-  metadata   String?
-  path       String?
-  pathOrder  String[]
   post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId     String
 }
