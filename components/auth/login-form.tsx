@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import SvgSpinners3DotsMove from "../icons/SvgSpinners3DotsMove";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -86,7 +87,7 @@ const LoginForm = () => {
           isLoading && "bg-gray-300"
         )}
       >
-        {isLoading ? "..." : "Log in"}
+        {isLoading ? <SvgSpinners3DotsMove className="w-5 h-5" /> : "Log in"}
       </button>
     </form>
   );

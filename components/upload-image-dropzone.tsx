@@ -1,8 +1,10 @@
 "use client";
 
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { IoMdImages } from "react-icons/io";
+import { UseFormSetValue } from "react-hook-form";
+import { TPost } from "@/lib/validations/post.validation";
 
 interface Props {
   files: (File & { preview: string })[] | undefined;
@@ -14,13 +16,15 @@ interface Props {
       | undefined
     >
   >;
+  setValue: UseFormSetValue<TPost>;
 }
 
-const UploadImageDropzone = ({ files, setFiles }: Props) => {
+const UploadImageDropzone = ({ files, setFiles, setValue }: Props) => {
   const { getInputProps, getRootProps } = useDropzone({
     accept: {
-      "image/*": [],
+      "image/jpeg": [".jpeg", ".jpg", ".png", ".webp", ".avif"],
     },
+    maxSize: 1024 * 1024 * 2,
     onDrop: (acceptedFiles) => {
       setFiles(
         acceptedFiles.map((file) =>
@@ -29,12 +33,22 @@ const UploadImageDropzone = ({ files, setFiles }: Props) => {
           })
         )
       );
+
+      setValue(
+        "images",
+        // @ts-ignore
+        acceptedFiles.map((file) => Object.assign(file)),
+        { shouldValidate: true }
+      );
+    },
+    onDropRejected(fileRejections, event) {
+      setFiles((files) => []);
     },
   });
 
   useEffect(() => {
     return () => files?.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, []);
+  }, [files]);
 
   return (
     <div

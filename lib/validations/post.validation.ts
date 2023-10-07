@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+const MAX_FILE_SIZE = 1024 * 1024 * 2; // 2 mb
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -7,37 +8,30 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
   "image/avif",
 ];
-const MAX_FILE_SIZE = 1500000; // 1.5mb
 
 export const postSchema = z.object({
   caption: z.string().nonempty(),
-  images:
-    typeof window === "undefined"
-      ? z.undefined()
-      : z
-          .instanceof(FileList)
-          .refine((image) => image.length !== 0, {
-            message: "Image is required",
-          })
-          .refine(
-            (image) => {
-              const fileType = image.item?.(0)?.type || "";
-              return ACCEPTED_IMAGE_TYPES.includes(fileType);
-            },
-            {
-              message:
-                ".jpg, .jpeg, .png, .webp, and .avif files are accepted.",
-            }
-          )
-          .refine(
-            (image) => {
-              const fileSize = image.item?.(0)?.size || 0;
-              return fileSize <= MAX_FILE_SIZE;
-            },
-            {
-              message: "Image must be less than or equal to 1.5mb",
-            }
-          ),
+  images: z
+    .array(z.custom<File>())
+    .nonempty()
+    .refine(
+      (files) => {
+        return files.every((file) => file instanceof File);
+      },
+      {
+        message: "Expected a file",
+      }
+    )
+    .refine(
+      (files) => files.every((file) => file.size <= MAX_FILE_SIZE),
+      "File size should be less than 2mb"
+    )
+    .refine(
+      (files) =>
+        files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
+      "Only theese types are allowed .jpg .jpef .png .webp and .avif"
+    ),
+  location: z.string().optional(),
 });
 
 export type TPost = z.infer<typeof postSchema>;

@@ -10,24 +10,72 @@ import {
 import { cn } from "@/lib/utils";
 import { User } from "@prisma/client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import { RxAvatar } from "react-icons/rx";
 import UploadImageDropzone from "./upload-image-dropzone";
 
-import "swiper/css";
-import ImagePreview from "./imge-preview";
+import { createPost } from "@/_actions/post.action";
+import { TPost, postSchema } from "@/lib/validations/post.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import SvgSpinners3DotsMove from "./icons/SvgSpinners3DotsMove";
+import ImagePreview from "./image-preview";
+
+import "swiper/css";
 
 interface Props {
   currentUser: User | null;
-  variant: "MOBILE" | "DESKTOP";
+  variant?: "MOBILE" | "DESKTOP";
 }
 
 function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
   const [files, setFiles] = useState<(File & { preview: string })[]>();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+
+  const {
+    getValues,
+    handleSubmit,
+    register,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm<TPost>({
+    resolver: zodResolver(postSchema),
+    defaultValues: {
+      caption: "",
+      images: [],
+      location: "",
+    },
+  });
+
+  const handlePostSubmit = (data: TPost) => {
+    let formData = new FormData();
+
+    formData.append("caption", data.caption);
+
+    for (let image of data.images) {
+      formData.append("images", image);
+    }
+
+    if (data.location) formData.append("location", data.location);
+
+    startTransition(async () => {
+      await createPost(formData)
+        .then((callback) => {
+          setFiles((files) => []);
+          setOpenModal((open) => false);
+          toast.success("submitted");
+          reset();
+        })
+        .catch((error) => {
+          console.log("Error");
+        });
+    });
+  };
 
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
@@ -45,18 +93,14 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
       <DialogContent
         className={cn("p-0 max-w-[61dvw]", files?.length && "max-w-[79dvw]")}
       >
-        <form
-          className="w-full"
-          onSubmit={(event) => {
-            setOpenModal((modal) => false);
-            setFiles((files) => []);
-          }}
-        >
+        <form className="w-full" onSubmit={handleSubmit(handlePostSubmit)}>
           <DialogHeader className="px-3 py-2.5">
             <div className="flex items-center justify-between">
               <button
                 type="button"
                 aria-label="close modal"
+                disabled={isPending}
+                className={cn(isPending && "text-gray-400")}
                 onClick={(event) => {
                   setOpenModal((modal) => false);
                   setFiles((files) => []);
@@ -68,11 +112,19 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
                 Create new post
               </DialogTitle>
               <button
+                disabled={isPending}
                 type="submit"
                 aria-label="upload label"
-                className="font-bold text-sky-500 hover:text-sky-600 transition-all duration-500"
+                className={cn(
+                  "font-bold text-sky-500 hover:text-sky-600 transition-all duration-500",
+                  !files?.length && "invisible"
+                )}
               >
-                Share
+                {isPending ? (
+                  <SvgSpinners3DotsMove className="w-5 h-5" />
+                ) : (
+                  "Share"
+                )}
               </button>
             </div>
           </DialogHeader>
@@ -84,9 +136,18 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
           >
             <div className="flex-1 overflow-hidden">
               {files?.length ? (
-                <ImagePreview images={files} />
+                <ImagePreview
+                  images={files}
+                  setFiles={setFiles}
+                  setValue={setValue}
+                  getValues={getValues}
+                />
               ) : (
-                <UploadImageDropzone files={files} setFiles={setFiles} />
+                <UploadImageDropzone
+                  files={files}
+                  setFiles={setFiles}
+                  setValue={setValue}
+                />
               )}
             </div>
             <div className={cn("w-[22dvw] hidden", files?.length && "block")}>
@@ -107,24 +168,35 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
                 )}
                 <p className="text-sm font-bold">{currentUser?.name}</p>
               </div>
-              <textarea
-                placeholder="Write a caption..."
-                className="w-full h-[15dvh] focus:outline-none p-1 resize-none text-sm border-b-2"
-              />
-              <input
-                type="text"
-                name="location"
-                id="location"
-                placeholder="Type Location (Optional)"
-                className="focus:outline-none px-1 py-2 text-sm border-b-2 w-full"
-              />
-              <input
-                type="text"
-                name="location"
-                id="location"
+              <div className="border-b-2">
+                <textarea
+                  placeholder="Write a caption..."
+                  className={cn(
+                    "w-full h-[15dvh] focus:outline-none p-1 resize-none text-sm",
+                    errors.caption && "placeholder:text-rose-300"
+                  )}
+                  {...register("caption")}
+                />
+                <span className="text-sm text-rose-500">
+                  {errors.caption?.message}
+                </span>
+              </div>
+              <div className="border-b-2">
+                <input
+                  placeholder="Type Location (Optional)"
+                  className={cn("focus:outline-none px-1 py-2 text-sm  w-full")}
+                  disabled={isPending}
+                  {...register("location")}
+                />
+                <span className="text-sm text-rose-500">
+                  {errors.location?.message}
+                </span>
+              </div>
+
+              {/* <input
                 placeholder="Select tags (Optional) [up to 3 tags]"
                 className="focus:outline-none px-1 py-2 text-sm w-full"
-              />
+              /> */}
             </div>
           </div>
         </form>

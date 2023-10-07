@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import SvgSpinners3DotsMove from "../icons/SvgSpinners3DotsMove";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -129,7 +130,7 @@ const RegisterForm = () => {
           isPending && "bg-gray-300"
         )}
       >
-        {isPending ? "..." : "Sign up"}
+        {isPending ? <SvgSpinners3DotsMove className="w-5 h-5" /> : "Sign up"}
       </button>
     </form>
   );
