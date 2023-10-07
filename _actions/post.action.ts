@@ -30,7 +30,7 @@ export const createPost = async (formData: FormData) => {
   // save image to public folder
   const savedImages = await saveImages(uploadsFolder, images);
 
-  // try {
+  try {
   // Create a new post in the database.
   const newPost = await prisma.post.create({
     data: {
@@ -47,8 +47,8 @@ export const createPost = async (formData: FormData) => {
   revalidateTag("post");
 
   return "create new post successfully";
-  // } catch (error) {
-  //   // Throw a generic error message if something goes wrong.
-  //   throw new Error("something went wrong");
-  // }
+  } catch (error) {
+    // Throw a generic error message if something goes wrong.
+    throw new Error("something went wrong");
+  }
 };
