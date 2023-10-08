@@ -1,3 +1,5 @@
+"use client";
+
 import { LuMessageCircle } from "react-icons/lu";
 import {
   LiaHeart,
@@ -6,6 +8,7 @@ import {
   LiaHeartSolid,
 } from "react-icons/lia";
 import { Likes, User } from "@prisma/client";
+import { useMemo } from "react";
 
 interface Props {
   currentUser: User | null;
@@ -13,11 +16,15 @@ interface Props {
 }
 
 const ActionButtons = ({ currentUser, likes }: Props) => {
+  const likesArrayIncludeCurrentUser = useMemo(() => {
+    return likes.find((obj) => obj["userId"].includes(currentUser?.id!));
+  }, [currentUser?.id, likes]);
+
   return (
     <div className="flex items-center justify-between my-2">
       <div className="flex space-x-3.5">
         <button aria-label="like action" className="hover:text-gray-500">
-          {likes.find((obj) => obj["userId"].includes(currentUser?.id!)) ? (
+          {likesArrayIncludeCurrentUser ? (
             <LiaHeartSolid className="w-7 h-7 fill-rose-500 hover:fill-rose-600 transition-all duration-400" />
           ) : (
             <LiaHeart className="w-7 h-7" />
