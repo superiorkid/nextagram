@@ -1,27 +1,46 @@
-import React from "react";
+import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import { GoKebabHorizontal } from "react-icons/go";
 import ActionButtons from "./action-buttons";
 import Caption from "./caption";
 import CommentForm from "./comment-form";
+import { RxAvatar } from "react-icons/rx";
+import ImageSlider from "./image-slider";
+import moment from "moment";
 
-const PostCard = () => {
+interface Props {
+  post: Prisma.PostGetPayload<{
+    include: {
+      images: true;
+      author: true;
+    };
+  }>;
+}
+
+const PostCard = ({ post }: Props) => {
   return (
     <div className="min-h-[68dvh] flex flex-col justify-between pt-3.5 first:pt-0">
       {/* head */}
       <div className="flex justify-between items-center mb-3 px-2 md:px-0">
         <div className="flex items-center space-x-3">
           <div className="relative h-9 w-9">
-            <Image
-              fill
-              src="https://images.unsplash.com/photo-1521856729154-7118f7181af9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80"
-              alt="profile pic"
-              className="rounded-full"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+            {post.author?.image ? (
+              <Image
+                fill
+                src={post.author?.image}
+                alt="profile pic"
+                className="rounded-full"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            ) : (
+              <RxAvatar className="w-6 h-6 inline mr-2.5" />
+            )}
           </div>
           <p className="text-sm font-bold tracking-wide">
-            hanifamr_ <span className="text-gray-400">• 31m</span>
+            {post.author?.name}{" "}
+            <span className="text-gray-400">
+              • {moment(post.createdAt.toDateString()).fromNow()}
+            </span>
           </p>
         </div>
         <button>
@@ -31,20 +50,12 @@ const PostCard = () => {
 
       {/* content */}
       <div className="flex-1">
-        <div className="relative h-[507px] bg-black">
-          <Image
-            fill
-            src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-            alt="post photo"
-            className="object-contain rounded-sm"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
+        <ImageSlider images={post.images} />
         <div className="text-sm px-2 md:px-0">
           <ActionButtons />
           <div className="space-y-0.5">
             <p className="font-bold tracking-wide">352 likes</p>
-            <Caption />
+            <Caption name={post.author?.name!} caption={post.caption} />
           </div>
         </div>
       </div>

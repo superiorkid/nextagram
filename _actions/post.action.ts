@@ -31,24 +31,43 @@ export const createPost = async (formData: FormData) => {
   const savedImages = await saveImages(uploadsFolder, images);
 
   try {
-  // Create a new post in the database.
-  const newPost = await prisma.post.create({
-    data: {
-      caption: caption as string,
-      location: (location as string) ?? undefined,
-      images: {
-        create: savedImages,
+    // Create a new post in the database.
+    const newPost = await prisma.post.create({
+      data: {
+        caption: caption as string,
+        location: (location as string) ?? undefined,
+        images: {
+          create: savedImages,
+        },
+        authorId: currentUser?.id,
       },
-      authorId: currentUser?.id,
-    },
-  });
+    });
 
-  // Revalidate the "post" tag to ensure that the new post is reflected in the cache.
-  revalidateTag("post");
+    // Revalidate the "post" tag to ensure that the new post is reflected in the cache.
+    revalidateTag("post");
 
-  return "create new post successfully";
+    return "create new post successfully";
   } catch (error) {
     // Throw a generic error message if something goes wrong.
     throw new Error("something went wrong");
+  }
+};
+
+export const getPosts = async () => {
+  try {
+    const posts = await prisma.post.findMany({
+      take: 10,
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        author: true,
+        images: true,
+      },
+    });
+
+    return posts;
+  } catch (error) {
+    throw new Error("failed to fetch posts");
   }
 };
