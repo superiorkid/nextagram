@@ -17,6 +17,8 @@ export default async function Home() {
   const suggestedUsers = await getSuggestedUsers();
   const posts = await getPosts();
 
+  console.log(posts);
+
   return (
     <Container className="max-w-screen-lg lg:px-3 pt-0 lg:pt-12 pb-6">
       <div className="min-h-screen flex justify-between space-x-14 flex-nowrap">
@@ -28,7 +30,7 @@ export default async function Home() {
           <Stories />
           <div className="max-w-md mx-auto space-y-5 divide-y-2">
             {posts.map((post, index) => (
-              <PostCard post={post} key={index} />
+              <PostCard post={post} currentUser={currentUser} key={index} />
             ))}
           </div>
         </div>

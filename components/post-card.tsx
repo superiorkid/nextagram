@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import Image from "next/image";
 import { GoKebabHorizontal } from "react-icons/go";
 import ActionButtons from "./action-buttons";
@@ -9,15 +9,20 @@ import ImageSlider from "./image-slider";
 import moment from "moment";
 
 interface Props {
+  currentUser: User | null;
   post: Prisma.PostGetPayload<{
     include: {
       images: true;
       author: true;
+      likedByUsers: true;
+      _count: {
+        select: { likedByUsers: true };
+      };
     };
   }>;
 }
 
-const PostCard = ({ post }: Props) => {
+const PostCard = async ({ post, currentUser }: Props) => {
   return (
     <div className="min-h-[68dvh] flex flex-col justify-between pt-3.5 first:pt-0">
       {/* head */}
@@ -43,8 +48,13 @@ const PostCard = ({ post }: Props) => {
             </span>
           </p>
         </div>
-        <button>
+        <button
+          aria-label="more action button"
+          type="button"
+          aria-labelledby="more action button"
+        >
           <GoKebabHorizontal />
+          <span className="sr-only">more button</span>
         </button>
       </div>
 
@@ -52,9 +62,11 @@ const PostCard = ({ post }: Props) => {
       <div className="flex-1">
         <ImageSlider images={post.images} />
         <div className="text-sm px-2 md:px-0">
-          <ActionButtons />
+          <ActionButtons currentUser={currentUser} likes={post.likedByUsers} />
           <div className="space-y-0.5">
-            <p className="font-bold tracking-wide">352 likes</p>
+            <p className="font-bold tracking-wide">
+              {post._count.likedByUsers} likes
+            </p>
             <Caption name={post.author?.name!} caption={post.caption} />
           </div>
         </div>

@@ -1,12 +1,27 @@
 import { LuMessageCircle } from "react-icons/lu";
-import { LiaHeart, LiaTelegram, LiaBookmark } from "react-icons/lia";
+import {
+  LiaHeart,
+  LiaTelegram,
+  LiaBookmark,
+  LiaHeartSolid,
+} from "react-icons/lia";
+import { Likes, User } from "@prisma/client";
 
-const ActionButtons = () => {
+interface Props {
+  currentUser: User | null;
+  likes: Likes[];
+}
+
+const ActionButtons = ({ currentUser, likes }: Props) => {
   return (
     <div className="flex items-center justify-between my-2">
       <div className="flex space-x-3.5">
         <button aria-label="like action" className="hover:text-gray-500">
-          <LiaHeart className="w-7 h-7" />
+          {likes.find((obj) => obj["userId"].includes(currentUser?.id!)) ? (
+            <LiaHeartSolid className="w-7 h-7 fill-rose-500 hover:fill-rose-600 transition-all duration-400" />
+          ) : (
+            <LiaHeart className="w-7 h-7" />
+          )}
         </button>
         <button aria-label="comment action" className="hover:text-gray-500">
           <LuMessageCircle className="w-7 h-7" />
