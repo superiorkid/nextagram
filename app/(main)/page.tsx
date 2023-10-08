@@ -17,8 +17,6 @@ export default async function Home() {
   const suggestedUsers = await getSuggestedUsers();
   const posts = await getPosts();
 
-  console.log(posts);
-
   return (
     <Container className="max-w-screen-lg lg:px-3 pt-0 lg:pt-12 pb-6">
       <div className="min-h-screen flex justify-between space-x-14 flex-nowrap">

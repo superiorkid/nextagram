@@ -62,7 +62,11 @@ const PostCard = async ({ post, currentUser }: Props) => {
       <div className="flex-1">
         <ImageSlider images={post.images} />
         <div className="text-sm px-2 md:px-0">
-          <ActionButtons currentUser={currentUser} likes={post.likedByUsers} />
+          <ActionButtons
+            postId={post.id}
+            currentUser={currentUser}
+            likes={post.likedByUsers}
+          />
           <div className="space-y-0.5">
             <p className="font-bold tracking-wide">
               {post._count.likedByUsers} likes
