@@ -64,7 +64,11 @@ export const getPosts = async () => {
         author: true,
         images: true,
         likedByUsers: true,
-        commentedByUsers: true,
+        commentedByUsers: {
+          include: {
+            user: true,
+          },
+        },
         _count: {
           select: {
             likedByUsers: true,

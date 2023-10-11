@@ -3,14 +3,19 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 
-const CommentForm = () => {
+interface Props {
+  inputStyles?: string;
+  buttonStyles?: string;
+}
+
+const CommentForm = ({ inputStyles, buttonStyles }: Props) => {
   const [comment, setComment] = useState<string>("");
 
   return (
     <form className="relative">
       <input
         placeholder="Add a comment..."
-        className="w-full pr-3 py-1 focus:outline-none"
+        className={cn("w-full pr-3 py-1 focus:outline-none", inputStyles)}
         onChange={(event) => setComment((comment) => event.target.value)}
       />
       <button

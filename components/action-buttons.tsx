@@ -3,8 +3,9 @@
 import { dislikePost, likePost } from "@/_actions/like.action";
 import { Likes, User } from "@prisma/client";
 import {
-  useMemo,
+  // @ts-ignore
   experimental_useOptimistic as useOptimistic,
+  useMemo,
   useTransition,
 } from "react";
 import {
@@ -19,11 +20,17 @@ interface Props {
   currentUser: User | null;
   likes: Likes[];
   postId: string;
+  iconSize?: string;
 }
 
 type Action = "like" | "dislike";
 
-const ActionButtons = ({ currentUser, likes, postId }: Props) => {
+const ActionButtons = ({
+  currentUser,
+  likes,
+  postId,
+  iconSize = "6",
+}: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const [optimisticLikes, updateOptimisticLikes] = useOptimistic(
@@ -40,7 +47,7 @@ const ActionButtons = ({ currentUser, likes, postId }: Props) => {
   );
 
   const likesArrayIncludeCurrentUser = useMemo(() => {
-    return optimisticLikes.find((obj) =>
+    return optimisticLikes.find((obj: { [x: string]: string | string[] }) =>
       obj["userId"].includes(currentUser?.id!)
     );
   }, [currentUser?.id, optimisticLikes]);
@@ -58,7 +65,7 @@ const ActionButtons = ({ currentUser, likes, postId }: Props) => {
   };
 
   return (
-    <div className="flex items-center justify-between my-2">
+    <div className="flex items-center justify-between my-2.5">
       <div className="flex space-x-3.5">
         <button
           aria-label="like action"
@@ -70,20 +77,24 @@ const ActionButtons = ({ currentUser, likes, postId }: Props) => {
           }}
         >
           {likesArrayIncludeCurrentUser ? (
-            <LiaHeartSolid className="w-7 h-7 fill-rose-500 hover:fill-rose-600 transition-all duration-400" />
+            <LiaHeartSolid
+              className={`w-${iconSize} h-${iconSize} fill-rose-500 hover:fill-rose-600 transition-all duration-400`}
+            />
           ) : (
-            <LiaHeart className="w-7 h-7 hover:fill-gray-100 transition-all duration-400" />
+            <LiaHeart
+              className={`w-${iconSize} h-${iconSize} hover:fill-gray-100 transition-all duration-400`}
+            />
           )}
         </button>
         <button aria-label="comment action" className="hover:text-gray-500">
-          <LuMessageCircle className="w-7 h-7" />
+          <LuMessageCircle className={`w-${iconSize} h-${iconSize}`} />
         </button>
         <button aria-label="share action" className="hover:text-gray-500">
-          <LiaTelegram className="w-7 h-7" />
+          <LiaTelegram className={`w-${iconSize} h-${iconSize}`} />
         </button>
       </div>
       <button aria-label="bookmark action" className="hover:text-gray-500">
-        <LiaBookmark className="w-7 h-7" />
+        <LiaBookmark className={`w-${iconSize} h-${iconSize}`} />
       </button>
     </div>
   );

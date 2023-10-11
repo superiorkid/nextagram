@@ -83,7 +83,7 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
         {variant === "MOBILE" ? (
           <GoPlusCircle className="w-6 h-6" />
         ) : (
-          <button className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md text-left outline-none">
+          <button className="t  ext-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md text-left outline-none">
             <GoPlusCircle className="w-6 h-6 inline mr-2.5" />
             Create
           </button>
@@ -150,6 +150,7 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
                 />
               )}
             </div>
+
             <div className={cn("w-[22dvw] hidden", files?.length && "block")}>
               <div className="p-3 flex items-center space-x-3">
                 {/* image */}
@@ -192,11 +193,6 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
                   {errors.location?.message}
                 </span>
               </div>
-
-              {/* <input
-                placeholder="Select tags (Optional) [up to 3 tags]"
-                className="focus:outline-none px-1 py-2 text-sm w-full"
-              /> */}
             </div>
           </div>
         </form>

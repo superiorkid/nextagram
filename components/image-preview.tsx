@@ -8,6 +8,7 @@ import "swiper/css";
 import SlideNextButton from "./slide-next-button";
 import SlidePrevButton from "./slide-prev-button";
 import { TbTrashX } from "react-icons/tb";
+import React from "react";
 
 interface Props {
   images: (File & { preview: string })[] | undefined;
@@ -37,18 +38,22 @@ const ImagePreview = ({ images, setFiles, setValue, getValues }: Props) => {
 
   return (
     <Swiper spaceBetween={10} slidesPerView={1} allowTouchMove={false}>
-      <SlidePrevButton
-        className="absolute left-3 top-1/2 -translate-y-2/4 z-10 bg-white text-gray-800 rounded-full hover:bg-gray-200 hover:text-gray-500"
-        iconSize="8"
-      />
-      <SlideNextButton
-        className="absolute right-3 top-1/2 -translate-y-2/4 z-10 bg-white text-gray-800 rounded-full hover:bg-gray-200 hover:text-gray-500"
-        iconSize="8"
-      />
+      {images?.length! > 1 && (
+        <React.Fragment>
+          <SlidePrevButton
+            className="absolute left-3 top-1/2 -translate-y-2/4 z-10 bg-white text-gray-800 rounded-full hover:bg-gray-200 hover:text-gray-500"
+            iconSize="8"
+          />
+          <SlideNextButton
+            className="absolute right-3 top-1/2 -translate-y-2/4 z-10 bg-white text-gray-800 rounded-full hover:bg-gray-200 hover:text-gray-500"
+            iconSize="8"
+          />
+        </React.Fragment>
+      )}
 
       {images?.map((image, index) => (
         <SwiperSlide key={index}>
-          <div className="relative h-[100dvh]">
+          <div className="relative h-[90dvh]">
             <Image
               fill
               src={image.preview}

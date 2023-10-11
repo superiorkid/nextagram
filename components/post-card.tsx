@@ -1,12 +1,13 @@
 import { Prisma, User } from "@prisma/client";
+import moment from "moment";
 import Image from "next/image";
 import { GoKebabHorizontal } from "react-icons/go";
+import { RxAvatar } from "react-icons/rx";
 import ActionButtons from "./action-buttons";
 import Caption from "./caption";
 import CommentForm from "./comment-form";
-import { RxAvatar } from "react-icons/rx";
 import ImageSlider from "./image-slider";
-import moment from "moment";
+import PostDetailModal from "./post-detail-modal";
 
 interface Props {
   currentUser: User | null;
@@ -15,8 +16,11 @@ interface Props {
       images: true;
       author: true;
       likedByUsers: true;
+      commentedByUsers: {
+        include: { user: true };
+      };
       _count: {
-        select: { likedByUsers: true };
+        select: { likedByUsers: true; commentedByUsers: true };
       };
     };
   }>;
@@ -38,15 +42,27 @@ const PostCard = async ({ post, currentUser }: Props) => {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (
-              <RxAvatar className="w-6 h-6 inline mr-2.5" />
+              <RxAvatar className="w-9 h-9 inline-flex mr-2.5" />
             )}
           </div>
-          <p className="text-sm font-bold tracking-wide">
-            {post.author?.name}{" "}
-            <span className="text-gray-400">
-              • {moment(post.createdAt.toDateString()).fromNow()}
-            </span>
-          </p>
+          <div className="leading-tight">
+            <div className="flex items-center space-x-2">
+              <p className="text-sm font-bold tracking-wide">
+                {post.author?.name}{" "}
+                <span className="text-gray-400 text-xs">
+                  •{" "}
+                  {moment(
+                    new Date(Date.parse(post.createdAt.toString()))
+                  ).fromNow()}
+                </span>
+              </p>
+            </div>
+            {post.location && (
+              <p className="text-xs text-gray-600 font-light tracking-wide">
+                {post.location}
+              </p>
+            )}
+          </div>
         </div>
         <button
           aria-label="more action button"
@@ -59,13 +75,14 @@ const PostCard = async ({ post, currentUser }: Props) => {
       </div>
 
       {/* content */}
-      <div className="flex-1">
+      <div className="flex-1 overflow-auto">
         <ImageSlider images={post.images} />
         <div className="text-sm px-2 md:px-0">
           <ActionButtons
             postId={post.id}
             currentUser={currentUser}
             likes={post.likedByUsers}
+            iconSize="7"
           />
           <div className="space-y-0.5">
             <p className="font-bold tracking-wide">
@@ -78,7 +95,7 @@ const PostCard = async ({ post, currentUser }: Props) => {
 
       {/* footer */}
       <div className="mt-1 text-sm space-y-1 px-2 md:px-0">
-        <button className="block text-gray-500">View all 8 comments</button>
+        <PostDetailModal currentUser={currentUser} post={post} />
         <CommentForm />
       </div>
     </div>

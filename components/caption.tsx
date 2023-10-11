@@ -17,7 +17,7 @@ const Caption = ({ name, caption }: Props) => {
 
   return (
     <React.Fragment>
-      <p className={cn("[text-wrap:balance]", !seeMore && "line-clamp-1")}>
+      <p className={cn("text-balance", !seeMore && "line-clamp-1")}>
         <span className="font-bold mr-2">{name}</span>
         {caption}
       </p>
