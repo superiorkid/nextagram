@@ -5,7 +5,6 @@ import saveImages from "@/lib/save-images";
 import { postSchema } from "@/lib/validations/post.validation";
 import { revalidateTag } from "next/cache";
 import getCurrentUser from "./get-current-user";
-import { commentSchema } from "@/lib/validations/comment.validation";
 
 export const createPost = async (formData: FormData) => {
   const currentUser = await getCurrentUser();
@@ -33,7 +32,7 @@ export const createPost = async (formData: FormData) => {
 
   try {
     // Create a new post in the database.
-    const newPost = await prisma.post.create({
+    await prisma.post.create({
       data: {
         caption: caption as string,
         location: (location as string) ?? undefined,
@@ -56,7 +55,7 @@ export const createPost = async (formData: FormData) => {
 
 export const getPosts = async () => {
   try {
-    const posts = await prisma.post.findMany({
+    return await prisma.post.findMany({
       take: 10,
       orderBy: {
         createdAt: "desc",
@@ -78,8 +77,6 @@ export const getPosts = async () => {
         },
       },
     });
-
-    return posts;
   } catch (error) {
     throw new Error("failed to fetch posts");
   }
