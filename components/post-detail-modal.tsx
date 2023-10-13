@@ -8,6 +8,7 @@ import { RxAvatar } from "react-icons/rx";
 import ActionButtons from "./action-buttons";
 import CommentForm from "./comment-form";
 import { Separator } from "./ui/separator";
+import ImageModalPreview from "./image-modal-preview";
 
 interface Props {
   currentUser: User | null;
@@ -40,13 +41,11 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
       </DialogTrigger>
 
       <DialogContent className="outline-none max-w-[80dvw] p-0 overflow-hidden">
-        <div className="overflow-clip">
-          <div className="flex max-h-[90dvh] overflow-auto min-w-0">
-            <div className="flex-1 overflow-hidden">
-              {/* <div className="">
-                <ImageModalPreview images={post.images} />
-              </div> */}
-              <div className="relative h-[90dvh]">
+        <div className="overflow-auto">
+          <div className="flex max-h-[90dvh] min-w-0">
+            <div className="flex-1 min-w-0 overflow-auto">
+              <ImageModalPreview images={post.images} />
+              {/* <div className="relative h-[90dvh]">
                 <Image
                   fill
                   src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1968&q=80"
@@ -54,11 +53,11 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
                   className="object-cover"
                   quality={75}
                 />
-              </div>
+              </div> */}
             </div>
 
-            <div className="w-[22dvw] flex flex-col justify-between z-50">
-              <div className="flex-1 overflow-auto">
+            <div className="w-[22dvw] flex flex-col justify-between overflow-auto">
+              <div className="flex-1">
                 <div className="p-4 flex justify-between items-center">
                   <div className="flex space-x-3 items-center">
                     {post?.author?.image ? (
