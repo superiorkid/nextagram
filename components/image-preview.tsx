@@ -58,7 +58,7 @@ const ImagePreview = ({ images, setFiles, setValue, getValues }: Props) => {
               fill
               src={image.preview}
               alt={`previe gambar ke-${index}`}
-              className="object-cover -z-10"
+              className="object-contain -z-10"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>

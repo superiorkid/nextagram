@@ -29,7 +29,7 @@ const Menu = ({ currentUser }: Props) => {
         Search
       </Link>
       <Link
-        href="#explore"
+        href="/explore"
         className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
       >
         <FiCompass className="w-6 h-6 inline mr-2.5" />

@@ -53,10 +53,10 @@ export const createPost = async (formData: FormData) => {
   }
 };
 
-export const getPosts = async () => {
+export const getPosts = async (display: number) => {
   try {
     return await prisma.post.findMany({
-      take: 10,
+      take: display,
       orderBy: {
         createdAt: "desc",
       },

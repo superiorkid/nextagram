@@ -15,7 +15,7 @@ import { getPosts } from "@/_actions/post.action";
 export default async function Home() {
   const currentUser = await getCurrentUser();
   const suggestedUsers = await getSuggestedUsers();
-  const posts = await getPosts();
+  const posts = await getPosts(5);
 
   return (
     <Container className="max-w-screen-lg lg:px-3 pt-0 lg:pt-12 pb-6">
