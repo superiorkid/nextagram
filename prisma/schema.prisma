@@ -48,6 +48,8 @@ model User {
   posts          Post[]
   likedPosts     Likes[]
   commentedPosts Comments[]
+  followers      Follows[]  @relation("following")
+  following      Follows[]  @relation("follower")
 }
 
 model Post {
@@ -85,11 +87,20 @@ model Likes {
 
 model Comments {
   id            String   @id @default(cuid())
-  post          Post     @relation(fields: [postId], references: [id])
+  post          Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId        String
-  user          User     @relation(fields: [userId], references: [id])
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String
   content       String
   postedAt      DateTime @default(now())
   lastUpdatedAt DateTime @updatedAt
+}
+
+model Follows {
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
 }
