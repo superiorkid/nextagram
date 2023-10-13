@@ -10,9 +10,9 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { RxAvatar } from "react-icons/rx";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import { Separator } from "@/components/ui/separator";
-import moment from "moment/moment";
 import ActionButtons from "@/components/action-buttons";
 import CommentForm from "@/components/comment-form";
+import fromNow from "@/lib/date-from-now";
 
 interface Props {
   posts: Prisma.PostGetPayload<{
@@ -151,7 +151,7 @@ function MasonryGrid({ posts, currentUser }: Props) {
                             {post?.caption}
                           </p>
                           <p className="mt-1.5 text-xs text-gray-600">
-                            {moment(post?.createdAt.toLocaleString()).fromNow()}
+                            {fromNow(post?.createdAt)}
                           </p>
                         </div>
                       </div>
@@ -186,9 +186,7 @@ function MasonryGrid({ posts, currentUser }: Props) {
                                   </p>
                                   <div className="mt-1.5 text-xs flex space-x-3 items-center">
                                     <time className=" text-gray-600">
-                                      {moment(
-                                        comment.postedAt.toLocaleString()
-                                      ).fromNow()}
+                                      {fromNow(comment.postedAt)}
                                     </time>
                                     <button
                                       type="button"

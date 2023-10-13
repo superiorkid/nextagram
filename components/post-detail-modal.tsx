@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import fromNow from "@/lib/date-from-now";
 import { Prisma, User } from "@prisma/client";
-import moment from "moment";
 import Image from "next/image";
 import React from "react";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
@@ -116,7 +116,7 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
                         {post?.caption}
                       </p>
                       <p className="mt-1.5 text-xs text-gray-600">
-                        {moment(post?.createdAt.toLocaleString()).fromNow()}
+                        {fromNow(post.createdAt)}
                       </p>
                     </div>
                   </div>
@@ -151,9 +151,7 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
                               </p>
                               <div className="mt-1.5 text-xs flex space-x-3 items-center">
                                 <time className=" text-gray-600">
-                                  {moment(
-                                    comment.postedAt.toLocaleString()
-                                  ).fromNow()}
+                                  {fromNow(comment.postedAt)}
                                 </time>
                                 <button
                                   type="button"

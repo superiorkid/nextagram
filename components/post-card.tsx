@@ -1,5 +1,4 @@
 import { Prisma, User } from "@prisma/client";
-import moment from "moment";
 import Image from "next/image";
 import { GoKebabHorizontal } from "react-icons/go";
 import { RxAvatar } from "react-icons/rx";
@@ -8,6 +7,7 @@ import Caption from "./caption";
 import CommentForm from "./comment-form";
 import ImageSlider from "./image-slider";
 import PostDetailModal from "./post-detail-modal";
+import fromNow from "@/lib/date-from-now";
 
 interface Props {
   currentUser: User | null;
@@ -50,10 +50,7 @@ const PostCard = async ({ post, currentUser }: Props) => {
               <p className="text-sm font-bold tracking-wide">
                 {post.author?.name}{" "}
                 <span className="text-gray-400 text-xs">
-                  •{" "}
-                  {moment(
-                    new Date(Date.parse(post.createdAt.toString()))
-                  ).fromNow()}
+                  • {fromNow(post.createdAt)}
                 </span>
               </p>
             </div>
