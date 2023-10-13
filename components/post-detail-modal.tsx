@@ -8,7 +8,6 @@ import { RxAvatar } from "react-icons/rx";
 import ActionButtons from "./action-buttons";
 import CommentForm from "./comment-form";
 import { Separator } from "./ui/separator";
-import { useDetailPostDialogContext } from "@/context/detail-post-dialog-ctx";
 
 interface Props {
   currentUser: User | null;
@@ -196,14 +195,17 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
                   />
                 </div>
                 <div className="px-4 leading-tight mb-4">
-                  <p className="font-bold text-sm tracking-wide">399 likes</p>
+                  <p className="font-bold te  xt-sm tracking-wide">
+                    {post._count.likedByUsers} like
+                    {post._count.likedByUsers > 1 && "s"}
+                  </p>
                   <p className="text-xs text-gray-600 font-medium tracking-wide">
                     2 HOURS AGO
                   </p>
                 </div>
 
                 <div className="border-t py-2.5 px-2">
-                  <CommentForm />
+                  <CommentForm postId={post.id} />
                 </div>
               </div>
             </div>

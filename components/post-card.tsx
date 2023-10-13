@@ -96,7 +96,7 @@ const PostCard = async ({ post, currentUser }: Props) => {
       {/* footer */}
       <div className="mt-1 text-sm space-y-1 px-2 md:px-0">
         <PostDetailModal currentUser={currentUser} post={post} />
-        <CommentForm />
+        <CommentForm postId={post.id} />
       </div>
     </div>
   );

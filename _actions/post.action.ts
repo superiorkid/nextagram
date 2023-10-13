@@ -5,6 +5,7 @@ import saveImages from "@/lib/save-images";
 import { postSchema } from "@/lib/validations/post.validation";
 import { revalidateTag } from "next/cache";
 import getCurrentUser from "./get-current-user";
+import { commentSchema } from "@/lib/validations/comment.validation";
 
 export const createPost = async (formData: FormData) => {
   const currentUser = await getCurrentUser();

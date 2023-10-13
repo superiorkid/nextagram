@@ -2,7 +2,6 @@ import ToastProvider from "@/providers/toast.provider";
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { DetailPostDialogCtx } from "@/context/detail-post-dialog-ctx";
 
 const helvetica = localFont({ src: "./Helvetica.woff2" });
 
@@ -19,10 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={helvetica.className}>
-        <DetailPostDialogCtx>
-          <ToastProvider />
-          {children}
-        </DetailPostDialogCtx>
+        <ToastProvider />
+        {children}
       </body>
     </html>
   );

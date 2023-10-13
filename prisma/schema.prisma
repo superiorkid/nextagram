@@ -47,7 +47,7 @@ model User {
   accounts       Account[]
   posts          Post[]
   likedPosts     Likes[]
-  commentedPOsts Comments[]
+  commentedPosts Comments[]
 }
 
 model Post {
@@ -84,6 +84,7 @@ model Likes {
 }
 
 model Comments {
+  id            String   @id @default(cuid())
   post          Post     @relation(fields: [postId], references: [id])
   postId        String
   user          User     @relation(fields: [userId], references: [id])
@@ -91,6 +92,4 @@ model Comments {
   content       String
   postedAt      DateTime @default(now())
   lastUpdatedAt DateTime @updatedAt
-
-  @@id([postId, userId])
 }

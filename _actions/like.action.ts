@@ -10,8 +10,12 @@ export const likePost = async (postId: string) => {
   try {
     await prisma.likes.create({
       data: {
-        postId,
-        userId: currentUser?.id!,
+        post: {
+          connect: { id: postId },
+        },
+        user: {
+          connect: { id: currentUser?.id! },
+        },
       },
     });
 
@@ -27,9 +31,12 @@ export const dislikePost = async (postId: string) => {
   const currentUser = await getCurrentUser();
 
   try {
-    await prisma.likes.deleteMany({
+    await prisma.likes.delete({
       where: {
-        AND: [{ postId }, { userId: currentUser?.id! }],
+        userId_postId: {
+          postId,
+          userId: currentUser?.id!,
+        },
       },
     });
 
