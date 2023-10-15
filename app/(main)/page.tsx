@@ -69,7 +69,11 @@ export default async function Home() {
 
             <div className="space-y-3.5">
               {suggestedUsers.map((user, index) => (
-                <UserCard user={user} key={index} />
+                <UserCard
+                  user={user}
+                  suggestedUsers={suggestedUsers}
+                  key={index}
+                />
               ))}
             </div>
           </div>

@@ -1,13 +1,20 @@
 import React from "react";
 import Image from "next/image";
-import { User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import { RxAvatar } from "react-icons/rx";
+import FollowUserButton from "./follow-user-button";
+import { getSuggestedUsers } from "@/_actions/user.action";
 
 interface Props {
-  user: User;
+  user: Prisma.UserGetPayload<{
+    include: { following: true; followers: true };
+  }>;
+  suggestedUsers: Prisma.UserGetPayload<{
+    include: { following: true; followers: true };
+  }>[];
 }
 
-const UserCard = ({ user }: Props) => {
+const UserCard = ({ user, suggestedUsers }: Props) => {
   return (
     <div className="flex justify-between items-center">
       <div className="flex space-x-2.5 items-center">
@@ -30,7 +37,7 @@ const UserCard = ({ user }: Props) => {
           <p className="text-gray-500 text-xs">Followed by _danu.ar</p>
         </div>
       </div>
-      <button className="text-sm text-sky-500 font-bold">Follow</button>
+      <FollowUserButton suggestedUsers={suggestedUsers} user={user} />
     </div>
   );
 };
