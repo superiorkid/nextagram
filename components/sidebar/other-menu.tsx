@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { GoGear } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
+import Link from "next/link";
 
 const OtherMenu = () => {
   const router = useRouter();
@@ -34,9 +35,14 @@ const OtherMenu = () => {
         More
       </DropdownMenuTrigger>
       <DropdownMenuContent side="top" className="w-[16dvw] mx-3">
-        <DropdownMenuItem className="text-base hover:font-bold hover:bg-gray-100 py-2.5 hover:cursor-pointer">
-          <GoGear className="w-5 h-5 inline mr-2.5" />
-          Settings
+        <DropdownMenuItem
+          className="text-base hover:font-bold hover:bg-gray-100 py-2.5 hover:cursor-pointer"
+          asChild
+        >
+          <Link href="/settings/profile">
+            <GoGear className="w-5 h-5 inline mr-2.5" />
+            Settings
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem

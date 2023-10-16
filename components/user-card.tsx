@@ -6,15 +6,10 @@ import FollowUserButton from "./follow-user-button";
 import { getSuggestedUsers } from "@/_actions/user.action";
 
 interface Props {
-  user: Prisma.UserGetPayload<{
-    include: { following: true; followers: true };
-  }>;
-  suggestedUsers: Prisma.UserGetPayload<{
-    include: { following: true; followers: true };
-  }>[];
+  user: User;
 }
 
-const UserCard = ({ user, suggestedUsers }: Props) => {
+const UserCard = ({ user }: Props) => {
   return (
     <div className="flex justify-between items-center">
       <div className="flex space-x-2.5 items-center">
@@ -37,7 +32,7 @@ const UserCard = ({ user, suggestedUsers }: Props) => {
           <p className="text-gray-500 text-xs">Followed by _danu.ar</p>
         </div>
       </div>
-      <FollowUserButton suggestedUsers={suggestedUsers} user={user} />
+      <FollowUserButton user={user} />
     </div>
   );
 };

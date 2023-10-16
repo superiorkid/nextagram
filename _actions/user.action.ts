@@ -2,6 +2,11 @@
 
 import prisma from "@/lib/prisma";
 import getCurrentUser from "@/_actions/get-current-user";
+import {
+  TProfileSchema,
+  profileSchema,
+} from "@/lib/validations/profile.validation";
+import { revalidateTag } from "next/cache";
 
 export const getSuggestedUsers = async () => {
   const currentUser = await getCurrentUser();
@@ -51,6 +56,39 @@ export const getSearchUsers = async (name: string) => {
       },
     },
   });
+};
+
+export const updateProfile = async (userInputs: TProfileSchema) => {
+  const currentUser = await getCurrentUser();
+
+  // validation
+  const validation = profileSchema.safeParse(userInputs);
+
+  if (!validation.success) {
+    throw new Error(validation.error.errors.at(0)?.message);
+  }
+
+  const { bio, fullName, gender, website } = userInputs;
+
+  try {
+    await prisma.user.update({
+      where: {
+        id: currentUser?.id,
+      },
+      data: {
+        fullName,
+        gender,
+        bio,
+        website,
+      },
+    });
+
+    revalidateTag("user");
+
+    return "update user info successfully";
+  } catch (error) {
+    throw new Error("failed to update profile");
+  }
 };
 
 export const follow = async (followingId: string) => {
