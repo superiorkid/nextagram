@@ -12,7 +12,10 @@ const saveImages = async (uploadsFolder: string, images: File[]) => {
     const path = join(uploadsFolder, slugify(image.name));
     await writeFile(path, buffer);
 
-    savedImages.push({ name: slugify(image.name), path });
+    savedImages.push({
+      name: slugify(image.name),
+      path: path.replace("public", ""),
+    });
   }
 
   return savedImages;

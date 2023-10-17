@@ -43,7 +43,7 @@ const ImageSlider = ({ images }: Props) => {
           <div className="relative h-[507px] bg-gray-700">
             <Image
               fill
-              src={image.path.replace("public", "")}
+              src={image.path}
               alt={`${image.name} image`}
               className="object-contain"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

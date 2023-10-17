@@ -4,9 +4,11 @@ import getCurrentUser from "@/_actions/get-current-user";
 import prisma from "@/lib/prisma";
 import {
   TProfileWithoutImageSchema,
-  profileSchema,
+  profileWithoutImageSchema,
+  profileImageSchema,
 } from "@/lib/validations/profile.validation";
 import { revalidateTag } from "next/cache";
+import saveImages from "@/lib/save-images";
 
 export const getSuggestedUsers = async () => {
   const currentUser = await getCurrentUser();
@@ -62,7 +64,7 @@ export const updateProfile = async (userInputs: TProfileWithoutImageSchema) => {
   const currentUser = await getCurrentUser();
 
   // validation
-  const validation = profileSchema.safeParse(userInputs);
+  const validation = profileWithoutImageSchema.safeParse(userInputs);
 
   if (!validation.success) {
     throw new Error(validation.error.errors.at(0)?.message);
@@ -159,4 +161,39 @@ export const removeProfilePhoto = async () => {
 
   revalidateTag("user");
   return true;
+};
+
+export const changeProfilePicture = async (formData: FormData) => {
+  const currentUser = await getCurrentUser();
+
+  const uploadsFolder = "public/images/profile-picture";
+
+  const images: File[] | null = formData.getAll("images") as unknown as File[];
+
+  // validation
+  const validation = profileImageSchema.safeParse({ profilePhoto: images });
+
+  if (!validation.success) {
+    throw new Error(validation.error.errors.at(0)?.message);
+  }
+
+  // save image to public folder
+  const saveImage = await saveImages(uploadsFolder, images);
+
+  try {
+    await prisma.user.update({
+      where: {
+        id: currentUser?.id,
+      },
+      data: {
+        image: saveImage.at(0)?.path,
+      },
+    });
+
+    revalidateTag("user");
+
+    return "update profile picture successfully";
+  } catch (error) {
+    throw new Error("something went wrong");
+  }
 };

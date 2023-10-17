@@ -23,7 +23,6 @@ export const createPost = async (formData: FormData) => {
   });
 
   if (!validation.success) {
-    console.log(validation.error.errors.at(0));
     throw new Error(validation.error.errors.at(0)?.message);
   }
 

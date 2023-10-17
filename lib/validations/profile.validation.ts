@@ -9,7 +9,7 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/avif",
 ];
 
-export const profileSchema = z.object({
+const profileSchema = z.object({
   fullName: z.string().nullish(),
   website: z.string().nullish(),
   bio: z.string().nullish(),
@@ -37,7 +37,6 @@ export const profileWithoutImageSchema = profileSchema.omit({
 });
 export const profileImageSchema = profileSchema.pick({ profilePhoto: true });
 
-export type TProfileSchema = z.infer<typeof profileSchema>;
 export type TProfileWithoutImageSchema = z.infer<
   typeof profileWithoutImageSchema
 >;
