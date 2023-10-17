@@ -1,9 +1,9 @@
 "use server";
 
-import prisma from "@/lib/prisma";
 import getCurrentUser from "@/_actions/get-current-user";
+import prisma from "@/lib/prisma";
 import {
-  TProfileSchema,
+  TProfileWithoutImageSchema,
   profileSchema,
 } from "@/lib/validations/profile.validation";
 import { revalidateTag } from "next/cache";
@@ -58,7 +58,7 @@ export const getSearchUsers = async (name: string) => {
   });
 };
 
-export const updateProfile = async (userInputs: TProfileSchema) => {
+export const updateProfile = async (userInputs: TProfileWithoutImageSchema) => {
   const currentUser = await getCurrentUser();
 
   // validation
@@ -139,4 +139,24 @@ export const unfollow = async (followingId: string) => {
   });
 
   return "Unfollowed successfully";
+};
+
+export const removeProfilePhoto = async () => {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser?.image) {
+    return true;
+  }
+
+  await prisma.user.update({
+    where: {
+      id: currentUser.id,
+    },
+    data: {
+      image: null,
+    },
+  });
+
+  revalidateTag("user");
+  return true;
 };
