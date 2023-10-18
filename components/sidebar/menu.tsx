@@ -39,7 +39,7 @@ const Menu = ({ currentUser }: Props) => {
       <CreateNewPostModal currentUser={currentUser} />
 
       <Link
-        href="#profile"
+        href={`/${currentUser?.name}`}
         className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md flex items-center"
       >
         {currentUser?.image ? (

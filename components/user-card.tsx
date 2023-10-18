@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import { Prisma, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { RxAvatar } from "react-icons/rx";
 import FollowUserButton from "./follow-user-button";
-import { getSuggestedUsers } from "@/_actions/user.action";
+import Link from "next/link";
 
 interface Props {
   user: User;
@@ -28,7 +28,9 @@ const UserCard = ({ user }: Props) => {
         )}
 
         <div className="text-sm">
-          <p className="font-bold tracking-wide">{user.name}</p>
+          <Link href={`/${user.name}`} className="font-bold tracking-wide">
+            {user.name}
+          </Link>
           <p className="text-gray-500 text-xs">Followed by _danu.ar</p>
         </div>
       </div>

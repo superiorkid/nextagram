@@ -9,8 +9,10 @@ import ActionButtons from "./action-buttons";
 import CommentForm from "./comment-form";
 import { Separator } from "./ui/separator";
 import ImageModalPreview from "./image-modal-preview";
+import Link from "next/link";
 
 interface Props {
+  children: React.ReactNode;
   currentUser: User | null;
   post: Prisma.PostGetPayload<{
     include: {
@@ -27,33 +29,16 @@ interface Props {
   }>;
 }
 
-const PostDetailModal = ({ currentUser, post }: Props) => {
+const PostDetailModal = ({ currentUser, post, children }: Props) => {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <button className="block text-gray-500 outline-none">
-          {post._count.commentedByUsers < 1
-            ? "View Post"
-            : post._count.commentedByUsers === 1
-            ? "View Comment"
-            : `View all ${post._count.commentedByUsers} comments`}
-        </button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
 
       <DialogContent className="outline-none max-w-[80dvw] p-0 overflow-hidden">
         <div className="overflow-auto">
           <div className="flex max-h-[90dvh] min-w-0">
             <div className="flex-1 min-w-0 overflow-auto">
               <ImageModalPreview images={post.images} />
-              {/* <div className="relative h-[90dvh]">
-                <Image
-                  fill
-                  src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1968&q=80"
-                  alt="image example"
-                  className="object-cover"
-                  quality={75}
-                />
-              </div> */}
             </div>
 
             <div className="w-[22dvw] flex flex-col justify-between overflow-auto">
@@ -74,9 +59,12 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
                       <RxAvatar className="w-8 h-8 inline" />
                     )}
                     <div className="leading-tight">
-                      <p className="text-sm font-bold tracking-wide">
-                        {post?.author?.name}
-                      </p>
+                      <Link
+                        href={`/${post.author?.name}`}
+                        className="text-sm font-bold tracking-wide"
+                      >
+                        {post.author?.name}
+                      </Link>
                       {post.location && (
                         <p className="text-sm text-gray-500">{post.location}</p>
                       )}
@@ -109,9 +97,12 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
                     </div>
                     <div className="w-full leading-tight">
                       <p className="text-sm font-extralight leading-snug">
-                        <span className="font-bold mr-2">
-                          {post?.author?.name}
-                        </span>
+                        <Link
+                          href={`/${post.author?.name}`}
+                          className="font-bold mr-2"
+                        >
+                          {post.author?.name}
+                        </Link>
                         {post?.caption}
                       </p>
                       <p className="mt-1.5 text-xs text-gray-600">
@@ -143,9 +134,12 @@ const PostDetailModal = ({ currentUser, post }: Props) => {
                             </div>
                             <div>
                               <p className="text-sm font-extralight leading-snug">
-                                <span className="font-bold mr-2">
+                                <Link
+                                  href={`/${comment.user.name}`}
+                                  className="font-bold mr-2"
+                                >
                                   {comment.user.name}
-                                </span>
+                                </Link>
                                 {comment.content}
                               </p>
                               <div className="mt-1.5 text-xs flex space-x-3 items-center">

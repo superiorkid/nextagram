@@ -8,6 +8,7 @@ import CommentForm from "./comment-form";
 import ImageSlider from "./image-slider";
 import PostDetailModal from "./post-detail-modal";
 import fromNow from "@/lib/date-from-now";
+import Link from "next/link";
 
 interface Props {
   currentUser: User | null;
@@ -48,7 +49,7 @@ const PostCard = async ({ post, currentUser }: Props) => {
           <div className="leading-tight">
             <div className="flex items-center space-x-2">
               <p className="text-sm font-bold tracking-wide">
-                {post.author?.name}{" "}
+                <Link href={`/${post.author?.name}`}>{post.author?.name}</Link>{" "}
                 <span className="text-gray-400 text-xs">
                   • {fromNow(post.createdAt)}
                 </span>
@@ -92,7 +93,15 @@ const PostCard = async ({ post, currentUser }: Props) => {
 
       {/* footer */}
       <div className="mt-1 text-sm space-y-1 px-2 md:px-0">
-        <PostDetailModal currentUser={currentUser} post={post} />
+        <PostDetailModal currentUser={currentUser} post={post}>
+          <button className="block text-gray-500 outline-none">
+            {post._count.commentedByUsers < 1
+              ? "View Post"
+              : post._count.commentedByUsers === 1
+              ? "View Comment"
+              : `View all ${post._count.commentedByUsers} comments`}
+          </button>
+        </PostDetailModal>
         <CommentForm postId={post.id} />
       </div>
     </div>

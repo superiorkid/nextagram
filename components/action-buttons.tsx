@@ -86,14 +86,26 @@ const ActionButtons = ({
             />
           )}
         </button>
-        <button aria-label="comment action" className="hover:text-gray-500">
+        <button
+          aria-label="comment action"
+          className="hover:text-gray-500"
+          onClick={() => alert("not implemented yet")}
+        >
           <LuMessageCircle className={`w-${iconSize} h-${iconSize}`} />
         </button>
-        <button aria-label="share action" className="hover:text-gray-500">
+        <button
+          aria-label="share action"
+          className="hover:text-gray-500"
+          onClick={() => alert("not implemented yet")}
+        >
           <LiaTelegram className={`w-${iconSize} h-${iconSize}`} />
         </button>
       </div>
-      <button aria-label="bookmark action" className="hover:text-gray-500">
+      <button
+        aria-label="bookmark action"
+        className="hover:text-gray-500"
+        onClick={() => alert("not implemented yet")}
+      >
         <LiaBookmark className={`w-${iconSize} h-${iconSize}`} />
       </button>
     </div>

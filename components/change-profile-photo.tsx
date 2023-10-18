@@ -70,6 +70,7 @@ function ChangeProfilePhoto() {
         .then(() => {
           toast.success("profile picture changed");
           removeFilesHandler();
+          setOpenModal((modal) => false);
         })
         .catch(() => {
           toast.error("failed to change profile picture");
@@ -77,11 +78,13 @@ function ChangeProfilePhoto() {
     });
   };
 
+  // TODO: remove profile photo on drive tho
   const removeCurrentProfileHandler = () => {
     startTransition(async () => {
       await removeProfilePhoto()
         .then(() => {
           toast.success("remove profile");
+          setOpenModal((modal) => false);
         })
         .catch(() => {
           toast.error("remove profile failed");

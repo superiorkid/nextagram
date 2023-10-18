@@ -16,9 +16,9 @@ export const userRegistration = async (data: TRegister): Promise<string> => {
   const { email, fullName, password, username } = data;
 
   // check already user
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findFirst({
     where: {
-      email,
+      OR: [{ email }, { name: username }],
     },
   });
 
@@ -28,7 +28,7 @@ export const userRegistration = async (data: TRegister): Promise<string> => {
     );
   }
 
-  // hashisng password  
+  // hashisng password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 

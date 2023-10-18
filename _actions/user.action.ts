@@ -45,6 +45,47 @@ export const getSuggestedUsers = async () => {
   }
 };
 
+export const getUser = async (name: string) => {
+  try {
+    return await prisma.user.findFirst({
+      where: {
+        name,
+      },
+      include: {
+        posts: {
+          include: {
+            author: true,
+            images: true,
+            commentedByUsers: {
+              include: {
+                user: true,
+              },
+            },
+            likedByUsers: true,
+            _count: {
+              select: {
+                likedByUsers: true,
+                commentedByUsers: true,
+              },
+            },
+          },
+        },
+        followers: true,
+        following: true,
+        _count: {
+          select: {
+            posts: true,
+            following: true,
+            followers: true,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    throw new Error("cannot fetch user detail");
+  }
+};
+
 export const getSearchUsers = async (name: string) => {
   const currentUser = await getCurrentUser();
 
