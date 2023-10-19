@@ -32,7 +32,7 @@ function MasonryGrid({ posts, currentUser }: Props) {
       config={{
         columns: [1, 2, 3],
         gap: [24, 12, 6],
-        media: [640, 768, 1024],
+        media: [640, 768, 1024],  
       }}
       render={(post, idx) => (
         <PostDetailModal currentUser={currentUser} post={post}>
@@ -43,6 +43,7 @@ function MasonryGrid({ posts, currentUser }: Props) {
               src={post.images.at(0)?.path.replace("public", "")!}
               alt="post image"
               className="object-contain group-hover:brightness-50 h-auto w-full group-hover:scale-105"
+              quality={75}
             />
             <div
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:flex space-x-5 text-white`}

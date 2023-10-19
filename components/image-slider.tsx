@@ -43,9 +43,11 @@ const ImageSlider = ({ images }: Props) => {
           <div className="relative h-[507px] bg-gray-700">
             <Image
               fill
+              priority
+              loading="eager"
               src={image.path}
               alt={`${image.name} image`}
-              className="object-contain"
+              className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               quality={75}
             />

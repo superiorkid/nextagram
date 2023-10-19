@@ -1,6 +1,7 @@
 import { writeFile } from "fs/promises";
 import { join } from "path";
 import slugify from "slugify";
+import generateRandomString from "@/lib/generate-random-strings";
 
 const saveImages = async (uploadsFolder: string, images: File[]) => {
   let savedImages = [];
@@ -9,7 +10,10 @@ const saveImages = async (uploadsFolder: string, images: File[]) => {
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const path = join(uploadsFolder, slugify(image.name));
+    const path = join(
+      uploadsFolder,
+      `${generateRandomString(16)}_ ${slugify(image.name)}`
+    );
     await writeFile(path, buffer);
 
     savedImages.push({
