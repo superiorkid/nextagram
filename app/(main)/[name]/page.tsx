@@ -8,6 +8,7 @@ import prisma from "@/lib/prisma";
 import React from "react";
 import getCurrentUser from "@/_actions/get-current-user";
 import PostDetailModal from "@/components/post-detail-modal";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: {
@@ -27,6 +28,10 @@ async function UserDetailPage({ params: { name } }: Props) {
   const currentUser = await getCurrentUser();
 
   const user = await getUser(name);
+
+  if (!user) {
+    notFound();
+  }
 
   return (
     <Container className="max-w-screen-lg lg:px-3 pt-0 lg:pt-7 pb-6 min-h-screen">
