@@ -60,7 +60,24 @@ export const getPosts = async (display: number) => {
         createdAt: "desc",
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            posts: {
+              include: {
+                images: true,
+              },
+            },
+            followers: true,
+            following: true,
+            _count: {
+              select: {
+                posts: true,
+                followers: true,
+                following: true,
+              },
+            },
+          },
+        },
         images: true,
         likedByUsers: true,
         commentedByUsers: {

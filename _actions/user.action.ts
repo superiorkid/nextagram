@@ -25,8 +25,20 @@ export const getSuggestedUsers = async () => {
         },
       },
       include: {
+        posts: {
+          include: {
+            images: true,
+          },
+        },
         followers: true,
         following: true,
+        _count: {
+          select: {
+            posts: true,
+            followers: true,
+            following: true,
+          },
+        },
       },
     });
 

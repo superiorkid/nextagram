@@ -9,13 +9,31 @@ import ImageSlider from "./image-slider";
 import PostDetailModal from "./post-detail-modal";
 import fromNow from "@/lib/date-from-now";
 import Link from "next/link";
+import UserTooltip from "@/components/user-tooltip";
 
 interface Props {
   currentUser: User | null;
   post: Prisma.PostGetPayload<{
     include: {
       images: true;
-      author: true;
+      author: {
+        include: {
+          posts: {
+            include: {
+              images: true;
+            };
+          };
+          followers: true;
+          following: true;
+          _count: {
+            select: {
+              posts: true;
+              followers: true;
+              following: true;
+            };
+          };
+        };
+      };
       likedByUsers: true;
       commentedByUsers: {
         include: { user: true };
@@ -32,36 +50,62 @@ const PostCard = async ({ post, currentUser }: Props) => {
     <div className="min-h-[68dvh] flex flex-col justify-between pt-3.5 first:pt-0">
       {/* head */}
       <div className="flex justify-between items-center mb-3 px-2 md:px-0">
-        <div className="flex items-center space-x-3">
-          <div className="relative h-9 w-9">
-            {post.author?.image ? (
-              <Image
-                fill
-                src={post.author?.image}
-                alt="profile pic"
-                className="rounded-full"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            ) : (
-              <RxAvatar className="w-9 h-9 inline-flex mr-2.5" />
-            )}
-          </div>
-          <div className="leading-tight">
-            <div className="flex items-center space-x-2">
-              <p className="text-sm font-bold tracking-wide">
-                <Link href={`/${post.author?.name}`}>{post.author?.name}</Link>{" "}
-                <span className="text-gray-400 text-xs">
-                  • {fromNow(post.createdAt)}
-                </span>
-              </p>
+        <UserTooltip
+          user={
+            post.author as Prisma.UserGetPayload<{
+              include: {
+                posts: {
+                  include: {
+                    images: true;
+                  };
+                };
+                followers: true;
+                following: true;
+                _count: {
+                  select: {
+                    posts: true;
+                    followers: true;
+                    following: true;
+                  };
+                };
+              };
+            }>
+          }
+        >
+          <div className="flex items-center space-x-3">
+            <div className="relative h-9 w-9">
+              {post.author?.image ? (
+                <Image
+                  fill
+                  src={post.author?.image}
+                  alt={`${post.author?.name} image`}
+                  className="rounded-full"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={75}
+                />
+              ) : (
+                <RxAvatar className="w-9 h-9 inline-flex mr-2.5" />
+              )}
             </div>
-            {post.location && (
-              <p className="text-xs text-gray-600 font-light tracking-wide">
-                {post.location}
-              </p>
-            )}
+            <div className="leading-tight">
+              <div className="flex items-center space-x-2">
+                <p className="text-sm font-bold tracking-wide">
+                  <Link href={`/${post.author?.name}`}>
+                    {post.author?.name}
+                  </Link>{" "}
+                  <span className="text-gray-400 text-xs">
+                    • {fromNow(post.createdAt)}
+                  </span>
+                </p>
+              </div>
+              {post.location && (
+                <p className="text-xs text-gray-600 font-light tracking-wide">
+                  {post.location}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
+        </UserTooltip>
         <button
           aria-label="more action button"
           type="button"
