@@ -9,6 +9,10 @@ import {
 } from "@/lib/validations/profile.validation";
 import { revalidateTag } from "next/cache";
 import saveImages from "@/lib/save-images";
+import fs from "fs";
+import path from "path";
+
+const fsPromises = fs.promises;
 
 export const getSuggestedUsers = async () => {
   const currentUser = await getCurrentUser();
@@ -191,7 +195,11 @@ export const removeProfilePhoto = async () => {
     return true;
   }
 
-  await prisma.user.update({
+  const unlinkPromise = fsPromises.unlink(
+    path.join("public", currentUser.image)
+  );
+
+  const updatePromise = prisma.user.update({
     where: {
       id: currentUser.id,
     },
@@ -199,6 +207,8 @@ export const removeProfilePhoto = async () => {
       image: null,
     },
   });
+
+  await Promise.all([unlinkPromise, updatePromise]);
 
   revalidateTag("user");
   return true;
@@ -217,6 +227,11 @@ export const changeProfilePicture = async (formData: FormData) => {
   if (!validation.success) {
     throw new Error(validation.error.errors.at(0)?.message);
   }
+
+  // delete current image from local
+  const unlinkPromise = fsPromises.unlink(
+    path.join("public", currentUser?.image!)
+  );
 
   // save image to public folder
   const saveImage = await saveImages(uploadsFolder, images);
