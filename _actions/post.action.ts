@@ -97,3 +97,69 @@ export const getPosts = async (display: number) => {
     throw new Error("failed to fetch posts");
   }
 };
+
+export const getPostsByFollowing = async (userId: string) => {
+  const currentUser = await getCurrentUser();
+
+  const following = await prisma.follows.findMany({
+    where: {
+      followerId: currentUser?.id,
+    },
+    select: {
+      followingId: true,
+    },
+  });
+
+  const followingIds = following.map((f) => f.followingId);
+
+  return await prisma.post.findMany({
+    where: {
+      OR: [
+        {
+          authorId: currentUser?.id,
+        },
+        {
+          authorId: {
+            in: followingIds,
+          },
+        },
+      ],
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      author: {
+        include: {
+          posts: {
+            include: {
+              images: true,
+            },
+          },
+          followers: true,
+          following: true,
+          _count: {
+            select: {
+              posts: true,
+              followers: true,
+              following: true,
+            },
+          },
+        },
+      },
+      images: true,
+      likedByUsers: true,
+      commentedByUsers: {
+        include: {
+          user: true,
+        },
+      },
+      _count: {
+        select: {
+          likedByUsers: true,
+          commentedByUsers: true,
+        },
+      },
+    },
+  });
+};

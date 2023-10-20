@@ -10,12 +10,12 @@ import { RxAvatar } from "react-icons/rx";
 import React from "react";
 import { getSuggestedUsers } from "@/_actions/user.action";
 import Logo from "@/components/logo";
-import { getPosts } from "@/_actions/post.action";
+import { getPosts, getPostsByFollowing } from "@/_actions/post.action";
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
   const suggestedUsers = await getSuggestedUsers();
-  const posts = await getPosts(5);
+  const posts = await getPostsByFollowing(currentUser?.id as string);
 
   return (
     <Container className="max-w-screen-lg lg:px-3 pt-0 lg:pt-12 pb-6">
@@ -27,9 +27,20 @@ export default async function Home() {
           </div>
           <Stories />
           <div className="max-w-md mx-auto space-y-5 divide-y-2">
-            {posts.map((post, index) => (
-              <PostCard post={post} currentUser={currentUser} key={index} />
-            ))}
+            {!posts.length ? (
+              <div className="bg-rose-100 p-5 rounded-md">
+                <p className="text-rose-500 font-light leading-snug text-lg text-justify">
+                  Enhance your feed by following users who share your interests.
+                  Discover captivating content and connect with like-minded
+                  individuals. Explore the vast realm of Nextagram and embark on
+                  a journey of discovery.
+                </p>
+              </div>
+            ) : (
+              posts.map((post, index) => (
+                <PostCard post={post} currentUser={currentUser} key={index} />
+              ))
+            )}
           </div>
         </div>
 
