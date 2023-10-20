@@ -3,12 +3,31 @@
 import React, { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { getSearchUsers } from "@/_actions/user.action";
-import { User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import UserCard from "@/components/user-card";
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState<string>();
-  const [results, setResults] = useState<User[]>([]);
+  const [results, setResults] = useState<
+    | Prisma.UserGetPayload<{
+        include: {
+          posts: {
+            include: {
+              images: true;
+            };
+          };
+          followers: true;
+          following: true;
+          _count: {
+            select: {
+              posts: true;
+              followers: true;
+              following: true;
+            };
+          };
+        };
+      }>[]
+  >([]);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +41,9 @@ function Search() {
         const data = await getSearchUsers(debouncedSearchTerm);
         results = data || [];
       }
-      setResults((res) => results);
+
+      // @ts-ignore
+      setResults((prevState) => results);
     };
 
     searchHN();

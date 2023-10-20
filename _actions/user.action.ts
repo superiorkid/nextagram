@@ -114,6 +114,22 @@ export const getSearchUsers = async (name: string) => {
         name: currentUser?.name,
       },
     },
+    include: {
+      posts: {
+        include: {
+          images: true,
+        },
+      },
+      followers: true,
+      following: true,
+      _count: {
+        select: {
+          posts: true,
+          followers: true,
+          following: true,
+        },
+      },
+    },
   });
 };
 
