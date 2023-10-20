@@ -3,7 +3,7 @@ import React from "react";
 function Loading() {
   return (
     <main className="mt-14 min-h-[15dvh] max-w-lg">
-      <h1 className="h-8 w-40 bg-gray-200 animate-pulse" />
+      <div className="h-8 w-40 bg-gray-200 animate-pulse" />
 
       <div className="mt-8">
         <div className="flex items-center space-x-8">
