@@ -1,9 +1,8 @@
-import React from "react";
-import Image from "next/image";
 import { Prisma, User } from "@prisma/client";
-import { BsGearWide } from "react-icons/bs";
+import Image from "next/image";
 import Link from "next/link";
 import { RxAvatar } from "react-icons/rx";
+import FollowUserButton from "./follow-user-button";
 
 interface Props {
   user: Prisma.UserGetPayload<{
@@ -37,9 +36,11 @@ interface Props {
       };
     };
   }> | null;
+  isFollowing: boolean;
+  isCurrentUser: boolean;
 }
 
-const ProfileHeader = ({ user }: Props) => {
+const ProfileHeader = ({ user, isFollowing, isCurrentUser }: Props) => {
   return (
     <section className="max-w-screen-md mx-auto flex space-x-20">
       <div className="relative h-28 w-28">
@@ -54,18 +55,27 @@ const ProfileHeader = ({ user }: Props) => {
           <RxAvatar className="w-28 h-28" />
         )}
       </div>
+
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-10 items-center">
           <p className="font-medium text-lg">{user?.name}</p>
-          <Link
-            href="/settings/profile"
-            className="font-black tracking-wide bg-gray-100 px-2 py-1 text-sm rounded-lg"
-          >
-            Edit profile
-          </Link>
-          <button type="button">
-            <BsGearWide className="w-6 h-6 fill-gray-700" />
-          </button>
+          {isCurrentUser && (
+            <Link
+              href="/settings/profile"
+              className="font-black tracking-wide bg-gray-100 px-2 py-1 text-sm rounded-lg"
+            >
+              Edit profile
+            </Link>
+          )}
+
+          {!isCurrentUser && (
+            <FollowUserButton
+              user={user as User}
+              isFollowing={isFollowing}
+              unfollowBtnStyle="py-1 bg-gray-200 text-gray-800 font-bold tracking-wide capitalize px-5 rounded-md"
+              followBtnStyle="py-1 bg-sky-400 text-white font-bold tracking-wide capitalize px-5 rounded-md"
+            />
+          )}
         </div>
         <div className="flex space-x-10 items-center">
           <p>

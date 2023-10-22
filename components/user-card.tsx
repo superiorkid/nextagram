@@ -5,6 +5,7 @@ import { RxAvatar } from "react-icons/rx";
 import FollowUserButton from "./follow-user-button";
 import Link from "next/link";
 import UserTooltip from "./user-tooltip";
+import { followingStatus } from "@/_actions/user.action";
 
 interface Props {
   user: Prisma.UserGetPayload<{
@@ -27,7 +28,9 @@ interface Props {
   }>;
 }
 
-const UserCard = ({ user }: Props) => {
+const UserCard = async ({ user }: Props) => {
+  const isFollowing = await followingStatus(user.id);
+
   return (
     <div className="flex justify-between items-center">
       <UserTooltip user={user}>
@@ -55,7 +58,7 @@ const UserCard = ({ user }: Props) => {
         </div>
       </UserTooltip>
 
-      <FollowUserButton user={user} />
+      <FollowUserButton user={user} isFollowing={isFollowing} />
     </div>
   );
 };

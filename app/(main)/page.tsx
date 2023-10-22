@@ -8,7 +8,7 @@ import Link from "next/link";
 import getCurrentUser from "@/_actions/get-current-user";
 import { RxAvatar } from "react-icons/rx";
 import React from "react";
-import { getSuggestedUsers } from "@/_actions/user.action";
+import { followingStatus, getSuggestedUsers } from "@/_actions/user.action";
 import Logo from "@/components/logo";
 import { getPosts, getPostsByFollowing } from "@/_actions/post.action";
 

@@ -187,6 +187,8 @@ export const follow = async (followingId: string) => {
     },
   });
 
+  revalidateTag("user");
+
   return "Followed Successfully";
 };
 
@@ -212,6 +214,8 @@ export const unfollow = async (followingId: string) => {
       },
     },
   });
+
+  revalidateTag("user");
 
   return "Unfollowed successfully";
 };
@@ -280,4 +284,21 @@ export const changeProfilePicture = async (formData: FormData) => {
   } catch (error) {
     throw new Error("something went wrong");
   }
+};
+
+export const followingStatus = async (userId: string) => {
+  const currentUser = await getCurrentUser();
+
+  const followingUser = await prisma.follows.findMany({
+    where: {
+      followerId: currentUser?.id,
+    },
+    select: {
+      followingId: true,
+    },
+  });
+
+  const followingIds = followingUser.map((f) => f.followingId);
+
+  return followingIds.includes(userId);
 };
