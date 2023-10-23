@@ -42,21 +42,20 @@ function Search() {
         results = data || [];
       }
 
-      // @ts-ignore
-      setResults((prevState) => results);
+      console.log(results);
     };
 
     searchHN();
   }, [debouncedSearchTerm]);
 
   return (
-    <React.Fragment>
+    <main>
       <div className="sm:border-b lg:border-none shadow-sm px-5 py-1.5">
         <input
           type="search"
           name="search"
           id="search"
-          placeholder="Search"
+          placeholder="search user..."
           className="w-full focus:outline-none border rounded-md py-0.5 px-3 border-gray-400 focus:ring-2 ring-gray-400"
           onChange={handleChange}
         />
@@ -78,7 +77,7 @@ function Search() {
           ))}
         <div className="pt-2"></div>
       </div>
-    </React.Fragment>
+    </main>
   );
 }
 
