@@ -35,7 +35,8 @@ async function UserDetailPage({ params: { name } }: Props) {
     notFound();
   }
 
-  const lockedAccount = user?.private && !isFollowing;
+  const lockedAccount =
+    user?.private && !isFollowing && currentUser?.id !== user.id;
 
   return (
     <Container className="max-w-screen-lg lg:px-3 pt-0 lg:pt-7 pb-6 min-h-screen">
