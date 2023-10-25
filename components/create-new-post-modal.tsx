@@ -13,11 +13,10 @@ import Image from "next/image";
 import { useState, useTransition } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
-import { RxAvatar } from "react-icons/rx";
 import UploadImageDropzone from "./upload-image-dropzone";
 
 import { createPost } from "@/_actions/post.action";
-import { TPost, postSchema } from "@/lib/validations/post.validation";
+import { postSchema, TPost } from "@/lib/validations/post.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -25,6 +24,7 @@ import SvgSpinners3DotsMove from "./icons/SvgSpinners3DotsMove";
 import ImagePreview from "./image-preview";
 
 import "swiper/css";
+import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   currentUser: User | null;
@@ -154,19 +154,18 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
             <div className={cn("w-[22dvw] hidden", files?.length && "block")}>
               <div className="p-3 flex items-center space-x-3">
                 {/* image */}
-                {currentUser?.image ? (
-                  <div className="relative w-8 h-8">
-                    <Image
-                      fill
-                      src={currentUser.image!}
-                      alt="profile photo"
-                      className="object-contain rounded-full"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </div>
-                ) : (
-                  <RxAvatar className="w-8 h-8" />
-                )}
+                <div className="relative w-8 h-8">
+                  <Image
+                    fill
+                    src={
+                      currentUser?.image ??
+                      generateAvatar(currentUser?.email as string)
+                    }
+                    alt={`${currentUser?.name} photo`}
+                    className="object-contain rounded-full"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
                 <p className="text-sm font-bold">{currentUser?.name}</p>
               </div>
               <div className="border-b-2">

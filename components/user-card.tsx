@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { Prisma, User } from "@prisma/client";
-import { RxAvatar } from "react-icons/rx";
+import { Prisma } from "@prisma/client";
 import FollowUserButton from "./follow-user-button";
 import Link from "next/link";
 import UserTooltip from "./user-tooltip";
 import { followingStatus } from "@/_actions/user.action";
+import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   user: Prisma.UserGetPayload<{
@@ -35,19 +35,15 @@ const UserCard = async ({ user }: Props) => {
     <div className="flex justify-between items-center">
       <UserTooltip user={user}>
         <div className="flex space-x-2.5 items-center">
-          {user.image ? (
-            <div className="relative w-12 h-12">
-              <Image
-                fill
-                src={user?.image!}
-                alt="profile photo"
-                className="object-cover rounded-full"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </div>
-          ) : (
-            <RxAvatar className="w-12 h-12" />
-          )}
+          <div className="relative w-12 h-12">
+            <Image
+              fill
+              src={user?.image ?? generateAvatar(user?.email as string)}
+              alt={`${user.name} photo`}
+              className="object-cover rounded-full"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
 
           <div className="text-sm">
             <Link href={`/${user.name}`} className="font-bold tracking-wide">

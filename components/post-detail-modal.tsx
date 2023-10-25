@@ -4,12 +4,12 @@ import { Prisma, User } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
-import { RxAvatar } from "react-icons/rx";
 import ActionButtons from "./action-buttons";
 import CommentForm from "./comment-form";
 import { Separator } from "./ui/separator";
 import ImageModalPreview from "./image-modal-preview";
 import Link from "next/link";
+import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   children: React.ReactNode;
@@ -45,19 +45,18 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
               <div className="flex-1">
                 <div className="p-4 flex justify-between items-center">
                   <div className="flex space-x-3 items-center">
-                    {post?.author?.image ? (
-                      <div className="relative h-8 w-8">
-                        <Image
-                          fill
-                          src={post.author?.image}
-                          alt={`${post.author.name} profile`}
-                          className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                    ) : (
-                      <RxAvatar className="w-8 h-8 inline" />
-                    )}
+                    <div className="relative h-8 w-8">
+                      <Image
+                        fill
+                        src={
+                          post.author?.image ??
+                          generateAvatar(post.author?.email as string)
+                        }
+                        alt={`${post.author?.name} profile`}
+                        className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
                     <div className="leading-tight">
                       <Link
                         href={`/${post.author?.name}`}
@@ -81,19 +80,18 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
                 <div className="p-4 overflow-auto">
                   <div className="flex space-x-4 mb-4">
                     <div>
-                      {post?.author?.image ? (
-                        <div className="relative h-8 w-8">
-                          <Image
-                            fill
-                            src={post.author?.image}
-                            alt={`${post.author.name} profile`}
-                            className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        </div>
-                      ) : (
-                        <RxAvatar className="w-8 h-8 inline" />
-                      )}
+                      <div className="relative h-8 w-8">
+                        <Image
+                          fill
+                          src={
+                            post.author?.image ??
+                            generateAvatar(post.author?.email as string)
+                          }
+                          alt={`${post.author?.name} profile`}
+                          className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      </div>
                     </div>
                     <div className="w-full leading-tight">
                       <p className="text-sm font-extralight leading-snug">
@@ -118,19 +116,20 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
                         <React.Fragment key={index}>
                           <div className="flex space-x-4">
                             <div>
-                              {comment.user.image ? (
-                                <div className="relative h-8 w-8">
-                                  <Image
-                                    fill
-                                    src={comment.user.image}
-                                    alt={`${comment.user.name} profile`}
-                                    className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                  />
-                                </div>
-                              ) : (
-                                <RxAvatar className="w-8 h-8 inline" />
-                              )}
+                              <div className="relative h-8 w-8">
+                                <Image
+                                  fill
+                                  src={
+                                    comment.user.image ??
+                                    generateAvatar(
+                                      comment.user?.email as string
+                                    )
+                                  }
+                                  alt={`${comment.user.name} profile`}
+                                  className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
+                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                />
+                              </div>
                             </div>
                             <div>
                               <p className="text-sm font-extralight leading-snug">

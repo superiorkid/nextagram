@@ -7,6 +7,7 @@ const nextConfig = {
       "images.unsplash.com",
       "cdn.discordapp.com",
       "plus.unsplash.com",
+      "www.gravatar.com",
     ],
   },
 };

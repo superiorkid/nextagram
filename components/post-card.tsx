@@ -1,7 +1,6 @@
 import { Prisma, User } from "@prisma/client";
 import Image from "next/image";
 import { GoKebabHorizontal } from "react-icons/go";
-import { RxAvatar } from "react-icons/rx";
 import ActionButtons from "./action-buttons";
 import Caption from "./caption";
 import CommentForm from "./comment-form";
@@ -10,6 +9,7 @@ import PostDetailModal from "./post-detail-modal";
 import fromNow from "@/lib/date-from-now";
 import Link from "next/link";
 import UserTooltip from "@/components/user-tooltip";
+import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   currentUser: User | null;
@@ -74,18 +74,17 @@ const PostCard = async ({ post, currentUser }: Props) => {
         >
           <div className="flex items-center space-x-3">
             <div className="relative h-9 w-9">
-              {post.author?.image ? (
-                <Image
-                  fill
-                  src={post.author?.image}
-                  alt={`${post.author?.name} image`}
-                  className="rounded-full"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  quality={75}
-                />
-              ) : (
-                <RxAvatar className="w-9 h-9 inline-flex mr-2.5" />
-              )}
+              <Image
+                fill
+                src={
+                  post.author?.image ??
+                  generateAvatar(post.author?.email as string)
+                }
+                alt={`${post.author?.name} image`}
+                className="rounded-full"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                quality={75}
+              />
             </div>
             <div className="leading-tight">
               <div className="flex items-center space-x-2">

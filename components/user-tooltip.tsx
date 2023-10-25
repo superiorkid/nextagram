@@ -7,12 +7,12 @@ import {
 } from "@/components/ui/tooltip";
 import { Prisma } from "@prisma/client";
 import Image from "next/image";
-import { RxAvatar } from "react-icons/rx";
 import { followingStatus } from "@/_actions/user.action";
 import { cn } from "@/lib/utils";
 import { FaCameraRetro } from "react-icons/fa";
 import { PiLockKeyDuotone } from "react-icons/pi";
 import FollowUserButton from "./follow-user-button";
+import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   children: React.ReactNode;
@@ -47,18 +47,15 @@ async function UserTooltip({ children, user }: Props) {
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent className="min-w-[22dvw] py-2">
           <div className="flex items-center space-x-4">
-            {user.image ? (
-              <div className="relative h-14 w-14">
-                <Image
-                  fill
-                  src={user.image}
-                  alt={`${user.name} photo`}
-                  className="object-cover rounded-full"
-                />
-              </div>
-            ) : (
-              <RxAvatar className="w-14 h-14 inline mr-2.5" />
-            )}
+            <div className="relative h-14 w-14">
+              <Image
+                fill
+                src={user.image ?? generateAvatar(user.email as string)}
+                alt={`${user.name} photo`}
+                className="object-cover rounded-full"
+              />
+            </div>
+
             <div className="leading-tight">
               <p className="font-bold text-base">
                 {user.fullName ?? user?.name}

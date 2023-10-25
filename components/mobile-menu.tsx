@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { GoHomeFill, GoPlusCircle, GoSearch } from "react-icons/go";
+import { GoHomeFill, GoSearch } from "react-icons/go";
 import { FiCompass } from "react-icons/fi";
 import { RxAvatar } from "react-icons/rx";
 import { User } from "@prisma/client";

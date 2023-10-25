@@ -11,7 +11,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { RxAvatar } from "react-icons/rx";
+import generateAvatar from "@/lib/generate-avatar";
 
 export const metadata: Metadata = {
   title: "Nextagram | instagram clone",
@@ -66,19 +66,19 @@ export default async function Home() {
 
         <div className="w-72 hidden lg:flex lg:flex-col pt-3">
           <div className="flex space-x-2.5 mb-6">
-            {currentUser?.image ? (
-              <div className="w-12 h-12 relative">
-                <Image
-                  fill
-                  src={currentUser.image}
-                  alt={`${currentUser.name} photo`}
-                  className="object-cover rounded-full"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-            ) : (
-              <RxAvatar className="w-12 h-12" />
-            )}
+            <div className="w-12 h-12 relative">
+              <Image
+                fill
+                src={
+                  currentUser.image ??
+                  generateAvatar(currentUser.email as string)
+                }
+                alt={`${currentUser.name} photo`}
+                className="object-cover rounded-full"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+
             <div className="text-sm">
               <p className="font-bold tracking-wide">{currentUser?.name}</p>
               <p className="text-gray-500">{currentUser?.email}</p>

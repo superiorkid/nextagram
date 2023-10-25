@@ -1,8 +1,8 @@
 import { Prisma, User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { RxAvatar } from "react-icons/rx";
 import FollowUserButton from "./follow-user-button";
+import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   user: Prisma.UserGetPayload<{
@@ -44,16 +44,12 @@ const ProfileHeader = ({ user, isFollowing, isCurrentUser }: Props) => {
   return (
     <section className="max-w-screen-md mx-auto flex space-x-20">
       <div className="relative h-28 w-28">
-        {user?.image ? (
-          <Image
-            fill
-            src={user.image as string}
-            alt={`${user.name} profile picture`}
-            className="object-cover rounded-full ring-2 ring-offset-2 ring-pink-400"
-          />
-        ) : (
-          <RxAvatar className="w-28 h-28" />
-        )}
+        <Image
+          fill
+          src={user?.image ?? generateAvatar(user?.email as string)}
+          alt={`${user?.name} profile picture`}
+          className="object-cover rounded-full ring-2 ring-offset-2 ring-pink-400"
+        />
       </div>
 
       <div className="flex flex-col space-y-4">

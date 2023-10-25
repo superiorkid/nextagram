@@ -4,7 +4,7 @@ import EditProfileForm from "@/components/edit-profile-form";
 import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { RxAvatar } from "react-icons/rx";
+import generateAvatar from "@/lib/generate-avatar";
 
 export const metadata: Metadata = {
   title: "Profile | Nextagram",
@@ -33,19 +33,18 @@ async function ProfilePage() {
       <div className="mt-8">
         <div className="flex items-center space-x-8">
           <div className="w-32 flex justify-end">
-            {currentUser?.image ? (
-              <div className="relative h-10 w-10 mr-2.5">
-                <Image
-                  fill
-                  src={currentUser.image}
-                  alt={`${currentUser.name} photo`}
-                  className="object-cover rounded-full"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-            ) : (
-              <RxAvatar className="w-10 h-10 inline mr-2.5" />
-            )}
+            <div className="relative h-10 w-10 mr-2.5">
+              <Image
+                fill
+                src={
+                  currentUser.image ??
+                  generateAvatar(currentUser?.email as string)
+                }
+                alt={`${currentUser.name} photo`}
+                className="object-cover rounded-full"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
           </div>
           <div className="flex-1 leading-tight">
             <h3 className="font-black">{currentUser?.name}</h3>
