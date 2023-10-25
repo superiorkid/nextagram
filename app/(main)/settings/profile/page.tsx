@@ -1,9 +1,23 @@
 import getCurrentUser from "@/_actions/get-current-user";
 import ChangeProfilePhoto from "@/components/change-profile-photo";
 import EditProfileForm from "@/components/edit-profile-form";
+import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { RxAvatar } from "react-icons/rx";
+
+export const metadata: Metadata = {
+  title: "Profile | Nextagram",
+  description: "Edit your profile",
+  openGraph: {
+    title: "Profile | Nextagram",
+    description: "Edit your profile",
+    url: "http://localhost:3000/settings/profile",
+    siteName: "Nextagram",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 async function ProfilePage() {
   const currentUser = await getCurrentUser();

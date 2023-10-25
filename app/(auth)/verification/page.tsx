@@ -4,7 +4,21 @@ import Footer from "@/components/footer";
 import LogoutButton from "@/components/logout-button";
 import ResendVerificationEmailButton from "@/components/resend-verification-email-button";
 import jwt, { Secret } from "jsonwebtoken";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Email Verification | Nextagram",
+  description: "Verify your email to continue using this",
+  openGraph: {
+    title: "Email Verification | Nextagram",
+    description: "Verify your email to continue using this",
+    url: "http://localhost:3000/verification",
+    siteName: "Nextagram",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 const EmailVerificationPage = async () => {
   const currentUser = await getCurrentUser();

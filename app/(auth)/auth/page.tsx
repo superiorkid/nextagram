@@ -1,6 +1,7 @@
 import getCurrentUser from "@/_actions/get-current-user";
 import Login from "@/components/auth/login";
 import Register from "@/components/auth/register";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -11,6 +12,19 @@ interface Props {
     variant: "login" | "register";
   };
 }
+
+export const metadata: Metadata = {
+  title: "Authentication | Nextagram",
+  description: "Login or Register to continue using this app",
+  openGraph: {
+    title: "Authentication | Nextagram",
+    description: "Login or Register to continue using this app",
+    url: "http://localhost:3000/auth",
+    siteName: "Nextagram",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 const AuthPage = async ({ searchParams: { variant } }: Props) => {
   const currentUser = await getCurrentUser();

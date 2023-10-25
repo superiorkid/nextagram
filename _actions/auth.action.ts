@@ -59,8 +59,7 @@ export const userRegistration = async (data: TRegister): Promise<string> => {
     //   revalidate cache
     revalidateTag("user");
 
-    // return `User ${newUser.id} registered successfully`;
-    return "ok";
+    return `User ${newUser.id} registered successfully`;
   } catch (error: any) {
     throw new Error(error.message);
   }

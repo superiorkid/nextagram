@@ -3,7 +3,6 @@ import Logo from "@/components/logo";
 import MobileMenu from "@/components/mobile-menu";
 import Menu from "@/components/sidebar/menu";
 import OtherMenu from "@/components/sidebar/other-menu";
-import { User } from "@prisma/client";
 import React from "react";
 
 interface Props {

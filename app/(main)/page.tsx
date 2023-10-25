@@ -7,10 +7,26 @@ import Logo from "@/components/logo";
 import PostCard from "@/components/post-card";
 import Stories from "@/components/stories";
 import UserCard from "@/components/user-card";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { RxAvatar } from "react-icons/rx";
+
+export const metadata: Metadata = {
+  title: "Nextagram | instagram clone",
+  description:
+    "Nextagram is instagram clone built using Nextjs and TailwindCSS",
+  openGraph: {
+    title: "Nextagram | instagram clone",
+    description:
+      "Nextagram is instagram clone built using Nextjs and TailwindCSS",
+    url: "http://localhost:3000/",
+    siteName: "Nextagram",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
