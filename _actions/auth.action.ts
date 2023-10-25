@@ -36,14 +36,14 @@ export const userRegistration = async (data: TRegister): Promise<string> => {
 
   try {
     // save to database
-    // const newUser = await prisma.user.create({
-    //   data: {
-    //     email,
-    //     fullName,
-    //     name: username,
-    //     password: hashedPassword,
-    //   },
-    // });
+    const newUser = await prisma.user.create({
+      data: {
+        email,
+        fullName,
+        name: username,
+        password: hashedPassword,
+      },
+    });
 
     // generate unique token
     const token = jwt.sign({ email }, process.env.NEXTAUTH_SECRET as Secret, {
