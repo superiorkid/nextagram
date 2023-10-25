@@ -19,24 +19,32 @@ interface Props {
 }
 
 export async function generateMetadata({ params: { name } }: Props) {
-  const user = await prisma.user.findUnique({
-    where: {
-      name,
-    },
-  });
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        name,
+      },
+    });
 
-  return {
-    title: `${user?.name} profile  | Nextagram`,
-    description: `${user?.name} detail profile`,
-    openGraph: {
+    return {
       title: `${user?.name} profile  | Nextagram`,
       description: `${user?.name} detail profile`,
-      url: `http://localhost:3000/${user?.name}`,
-      siteName: "Nextagram",
-      locale: "en_US",
-      type: "website",
-    },
-  };
+      openGraph: {
+        title: `${user?.name} profile  | Nextagram`,
+        description: `${user?.name} detail profile`,
+        url: `http://localhost:3000/${user?.name}`,
+        siteName: "Nextagram",
+        locale: "en_US",
+        type: "website",
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      title: "Not Found",
+      description: "User you are looking for does not found",
+    };
+  }
 }
 
 export async function generateStaticParams() {
