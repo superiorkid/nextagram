@@ -1,12 +1,16 @@
-import React from "react";
 import getCurrentUser from "@/_actions/get-current-user";
-import Image from "next/image";
-import { RxAvatar } from "react-icons/rx";
 import ChangeProfilePhoto from "@/components/change-profile-photo";
 import EditProfileForm from "@/components/edit-profile-form";
+import Image from "next/image";
+import { redirect } from "next/navigation";
+import { RxAvatar } from "react-icons/rx";
 
 async function ProfilePage() {
   const currentUser = await getCurrentUser();
+
+  if (!currentUser?.emailVerified) {
+    redirect("/verification");
+  }
 
   return (
     <main className="mt-14 min-h-[15dvh] max-w-lg">

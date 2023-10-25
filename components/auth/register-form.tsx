@@ -1,13 +1,13 @@
 "use client";
 
 import { userRegistration } from "@/_actions/auth.action";
+import { cn } from "@/lib/utils";
 import { TRegister, registerSchema } from "@/lib/validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
 import SvgSpinners3DotsMove from "../icons/SvgSpinners3DotsMove";
 
 const RegisterForm = () => {
@@ -130,7 +130,11 @@ const RegisterForm = () => {
           isPending && "bg-gray-300"
         )}
       >
-        {isPending ? <SvgSpinners3DotsMove className="w-5 h-5" /> : "Sign up"}
+        {isPending ? (
+          <SvgSpinners3DotsMove className="h-5 w-full" />
+        ) : (
+          "Sign up"
+        )}
       </button>
     </form>
   );

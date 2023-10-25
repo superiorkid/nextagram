@@ -1,21 +1,25 @@
+import getCurrentUser from "@/_actions/get-current-user";
+import { getPostsByFollowing } from "@/_actions/post.action";
+import { getSuggestedUsers } from "@/_actions/user.action";
 import Container from "@/components/container";
 import Footer from "@/components/footer";
+import Logo from "@/components/logo";
 import PostCard from "@/components/post-card";
 import Stories from "@/components/stories";
 import UserCard from "@/components/user-card";
 import Image from "next/image";
 import Link from "next/link";
-import getCurrentUser from "@/_actions/get-current-user";
+import { redirect } from "next/navigation";
 import { RxAvatar } from "react-icons/rx";
-import React from "react";
-import { followingStatus, getSuggestedUsers } from "@/_actions/user.action";
-import Logo from "@/components/logo";
-import { getPosts, getPostsByFollowing } from "@/_actions/post.action";
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
   const suggestedUsers = await getSuggestedUsers();
   const posts = await getPostsByFollowing(currentUser?.id as string);
+
+  if (!currentUser?.emailVerified) {
+    redirect("/verification");
+  }
 
   return (
     <Container className="max-w-screen-lg lg:px-3 pt-0 lg:pt-12 pb-6">

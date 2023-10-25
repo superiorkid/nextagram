@@ -1,6 +1,13 @@
-import React from "react";
+import getCurrentUser from "@/_actions/get-current-user";
+import { redirect } from "next/navigation";
 
-function DashboardPage() {
+async function DashboardPage() {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser?.emailVerified) {
+    redirect("/verification");
+  }
+
   return <div>dashboard page</div>;
 }
 

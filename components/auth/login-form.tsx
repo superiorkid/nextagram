@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { cn } from "@/lib/utils";
 import { TLogin, loginSchama } from "@/lib/validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import SvgSpinners3DotsMove from "../icons/SvgSpinners3DotsMove";
 
@@ -87,7 +87,7 @@ const LoginForm = () => {
           isLoading && "bg-gray-300"
         )}
       >
-        {isLoading ? <SvgSpinners3DotsMove className="w-5 h-5" /> : "Log in"}
+        {isLoading ? <SvgSpinners3DotsMove className="h-5 w-full" /> : "Log in"}
       </button>
     </form>
   );

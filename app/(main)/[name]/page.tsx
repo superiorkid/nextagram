@@ -1,15 +1,15 @@
-import { getUser, followingStatus } from "@/_actions/user.action";
+import getCurrentUser from "@/_actions/get-current-user";
+import { followingStatus, getUser } from "@/_actions/user.action";
 import Container from "@/components/container";
+import LockedAccount from "@/components/locked-account";
+import PostDetailModal from "@/components/post-detail-modal";
 import ProfileHeader from "@/components/profile-header";
+import prisma from "@/lib/prisma";
 import Image from "next/image";
+import { notFound, redirect } from "next/navigation";
+import React from "react";
 import { FaComment, FaHeart, FaImages } from "react-icons/fa6";
 import { MdGridOn } from "react-icons/md";
-import prisma from "@/lib/prisma";
-import React from "react";
-import getCurrentUser from "@/_actions/get-current-user";
-import PostDetailModal from "@/components/post-detail-modal";
-import { notFound } from "next/navigation";
-import LockedAccount from "@/components/locked-account";
 import { PiLockKeyDuotone } from "react-icons/pi";
 
 interface Props {
@@ -33,6 +33,10 @@ async function UserDetailPage({ params: { name } }: Props) {
 
   if (!user) {
     notFound();
+  }
+
+  if (!currentUser?.emailVerified) {
+    redirect("/verification");
   }
 
   const lockedAccount =

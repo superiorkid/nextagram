@@ -1,8 +1,10 @@
 "use server";
 
+import { sendMail } from "@/_actions/emails/send-email";
 import prisma from "@/lib/prisma";
-import bcrypt from "bcryptjs";
 import { TRegister, registerSchema } from "@/lib/validations/auth.validation";
+import bcrypt from "bcryptjs";
+import jwt, { Secret } from "jsonwebtoken";
 import { revalidateTag } from "next/cache";
 
 export const userRegistration = async (data: TRegister): Promise<string> => {
@@ -32,18 +34,34 @@ export const userRegistration = async (data: TRegister): Promise<string> => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  //   save to database
-  const newUser = await prisma.user.create({
-    data: {
-      email,
-      fullName,
-      name: username,
-      password: hashedPassword,
-    },
-  });
+  try {
+    // save to database
+    // const newUser = await prisma.user.create({
+    //   data: {
+    //     email,
+    //     fullName,
+    //     name: username,
+    //     password: hashedPassword,
+    //   },
+    // });
 
-  //   revalidate cache
-  revalidateTag("user");
+    // generate unique token
+    const token = jwt.sign({ email }, process.env.NEXTAUTH_SECRET as Secret, {
+      expiresIn: "1h",
+    });
 
-  return `User ${newUser.id} registered successfully`;
+    await sendMail({
+      token,
+      subject: "User registration",
+      toEmail: email,
+    });
+
+    //   revalidate cache
+    revalidateTag("user");
+
+    // return `User ${newUser.id} registered successfully`;
+    return "ok";
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };
