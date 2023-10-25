@@ -18,6 +18,27 @@ interface Props {
   };
 }
 
+export async function generateMetadata({ params: { name } }: Props) {
+  const user = await prisma.user.findUnique({
+    where: {
+      name,
+    },
+  });
+
+  return {
+    title: `${user?.name} profile  | Nextagram`,
+    description: `${user?.name} detail profile`,
+    openGraph: {
+      title: `${user?.name} profile  | Nextagram`,
+      description: `${user?.name} detail profile`,
+      url: `http://localhost:3000/${user?.name}`,
+      siteName: "Nextagram",
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
 export async function generateStaticParams() {
   const users = await prisma.user.findMany();
 
