@@ -2,12 +2,7 @@
 
 import { dislikePost, likePost } from "@/_actions/like.action";
 import { Likes, User } from "@prisma/client";
-import {
-  // @ts-ignore
-  experimental_useOptimistic as useOptimistic,
-  useMemo,
-  useTransition,
-} from "react";
+import { useOptimistic, useMemo, useTransition } from "react";
 import {
   LiaBookmark,
   LiaHeart,

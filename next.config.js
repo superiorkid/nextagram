@@ -1,14 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { serverActions: true },
   images: {
-    domains: [
-      "ik.imagekit.io",
-      "images.unsplash.com",
-      "cdn.discordapp.com",
-      "plus.unsplash.com",
-      "www.gravatar.com",
-      "api.dicebear.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.discordapp.com",
+      },
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+      },
     ],
   },
 };

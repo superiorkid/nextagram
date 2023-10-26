@@ -42,7 +42,8 @@ function Search() {
         results = data || [];
       }
 
-      console.log(results);
+      // @ts-ignore
+      setResults((prevState) => results);
     };
 
     searchHN();

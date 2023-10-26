@@ -1,7 +1,8 @@
-import ToastProvider from "@/providers/toast.provider";
+import ToastProvider from "@/providers/toast-provider";
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const helvetica = localFont({ src: "./Helvetica.woff2" });
 
@@ -33,8 +34,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={helvetica.className}>
-        <ToastProvider />
-        {children}
+        <ThemeProvider
+          enableSystem
+          disableTransitionOnChange
+          attribute="class"
+          defaultTheme="system"
+        >
+          <ToastProvider />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
