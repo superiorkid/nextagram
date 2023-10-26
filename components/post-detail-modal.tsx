@@ -9,7 +9,6 @@ import CommentForm from "./comment-form";
 import { Separator } from "./ui/separator";
 import ImageModalPreview from "./image-modal-preview";
 import Link from "next/link";
-import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   children: React.ReactNode;
@@ -50,7 +49,7 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
                         fill
                         src={
                           post.author?.image ??
-                          generateAvatar(post.author?.email as string)
+                          `https://api.dicebear.com/7.x/micah/png?seed=${post.author?.email}`
                         }
                         alt={`${post.author?.name} profile`}
                         className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
@@ -85,7 +84,7 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
                           fill
                           src={
                             post.author?.image ??
-                            generateAvatar(post.author?.email as string)
+                            `https://api.dicebear.com/7.x/micah/png?seed=${post.author?.email}`
                           }
                           alt={`${post.author?.name} profile`}
                           className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"
@@ -121,9 +120,7 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
                                   fill
                                   src={
                                     comment.user.image ??
-                                    generateAvatar(
-                                      comment.user?.email as string
-                                    )
+                                    `https://api.dicebear.com/7.x/micah/png?seed=${comment.user.email}`
                                   }
                                   alt={`${comment.user.name} profile`}
                                   className="object-cover rounded-full ring-2 ring-offset-1 ring-pink-300"

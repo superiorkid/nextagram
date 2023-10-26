@@ -9,7 +9,6 @@ import PostDetailModal from "./post-detail-modal";
 import fromNow from "@/lib/date-from-now";
 import Link from "next/link";
 import UserTooltip from "@/components/user-tooltip";
-import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   currentUser: User | null;
@@ -78,7 +77,7 @@ const PostCard = async ({ post, currentUser }: Props) => {
                 fill
                 src={
                   post.author?.image ??
-                  generateAvatar(post.author?.email as string)
+                  `https://api.dicebear.com/7.x/micah/png?seed=${post.author?.email}`
                 }
                 alt={`${post.author?.name} image`}
                 className="rounded-full"

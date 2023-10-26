@@ -2,7 +2,6 @@ import { Prisma, User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import FollowUserButton from "./follow-user-button";
-import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   user: Prisma.UserGetPayload<{
@@ -46,7 +45,10 @@ const ProfileHeader = ({ user, isFollowing, isCurrentUser }: Props) => {
       <div className="relative h-28 w-28">
         <Image
           fill
-          src={user?.image ?? generateAvatar(user?.email as string)}
+          src={
+            user?.image ??
+            `https://api.dicebear.com/7.x/micah/png?seed=${user?.email}`
+          }
           alt={`${user?.name} profile picture`}
           className="object-cover rounded-full ring-2 ring-offset-2 ring-pink-400"
         />

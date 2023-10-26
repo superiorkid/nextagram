@@ -8,6 +8,7 @@ const nextConfig = {
       "cdn.discordapp.com",
       "plus.unsplash.com",
       "www.gravatar.com",
+      "api.dicebear.com",
     ],
   },
 };

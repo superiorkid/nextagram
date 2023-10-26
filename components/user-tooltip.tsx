@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { FaCameraRetro } from "react-icons/fa";
 import { PiLockKeyDuotone } from "react-icons/pi";
 import FollowUserButton from "./follow-user-button";
-import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   children: React.ReactNode;
@@ -50,7 +49,10 @@ async function UserTooltip({ children, user }: Props) {
             <div className="relative h-14 w-14">
               <Image
                 fill
-                src={user.image ?? generateAvatar(user.email as string)}
+                src={
+                  user.image ??
+                  `https://api.dicebear.com/7.x/micah/png?seed=${user?.email}`
+                }
                 alt={`${user.name} photo`}
                 className="object-cover rounded-full"
               />

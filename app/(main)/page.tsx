@@ -11,7 +11,6 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import generateAvatar from "@/lib/generate-avatar";
 
 export const metadata: Metadata = {
   title: "Nextagram | instagram clone",
@@ -71,7 +70,7 @@ export default async function Home() {
                 fill
                 src={
                   currentUser.image ??
-                  generateAvatar(currentUser.email as string)
+                  `https://api.dicebear.com/7.x/micah/png?seed=${currentUser?.email}`
                 }
                 alt={`${currentUser.name} photo`}
                 className="object-cover rounded-full"

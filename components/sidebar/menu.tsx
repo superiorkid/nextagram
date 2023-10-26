@@ -5,7 +5,6 @@ import { FiCompass } from "react-icons/fi";
 import { GoHomeFill, GoSearch } from "react-icons/go";
 import Image from "next/image";
 import CreateNewPostModal from "@/components/create-new-post-modal";
-import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   currentUser: User | null;
@@ -46,7 +45,8 @@ const Menu = ({ currentUser }: Props) => {
           <Image
             fill
             src={
-              currentUser?.image ?? generateAvatar(currentUser?.email as string)
+              currentUser?.image ??
+              `https://api.dicebear.com/7.x/micah/png?seed=${currentUser?.email}`
             }
             alt={`${currentUser?.name} photo`}
             className="object-cover rounded-full"

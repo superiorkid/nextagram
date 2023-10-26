@@ -4,7 +4,6 @@ import EditProfileForm from "@/components/edit-profile-form";
 import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import generateAvatar from "@/lib/generate-avatar";
 
 export const metadata: Metadata = {
   title: "Profile | Nextagram",
@@ -38,7 +37,7 @@ async function ProfilePage() {
                 fill
                 src={
                   currentUser.image ??
-                  generateAvatar(currentUser?.email as string)
+                  `https://api.dicebear.com/7.x/micah/png?seed=${currentUser.email}`
                 }
                 alt={`${currentUser.name} photo`}
                 className="object-cover rounded-full"

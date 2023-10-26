@@ -24,7 +24,6 @@ import SvgSpinners3DotsMove from "./icons/SvgSpinners3DotsMove";
 import ImagePreview from "./image-preview";
 
 import "swiper/css";
-import generateAvatar from "@/lib/generate-avatar";
 
 interface Props {
   currentUser: User | null;
@@ -159,7 +158,7 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
                     fill
                     src={
                       currentUser?.image ??
-                      generateAvatar(currentUser?.email as string)
+                      `https://api.dicebear.com/7.x/micah/png?seed=${currentUser?.email}`
                     }
                     alt={`${currentUser?.name} photo`}
                     className="object-contain rounded-full"
