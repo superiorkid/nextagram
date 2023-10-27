@@ -60,7 +60,7 @@ const ProfileHeader = ({ user, isFollowing, isCurrentUser }: Props) => {
           {isCurrentUser && (
             <Link
               href="/settings/profile"
-              className="font-black tracking-wide bg-gray-100 px-2 py-1 text-sm rounded-lg"
+              className="font-black tracking-wide bg-gray-100 px-2 py-1 text-sm rounded-lg dark:bg-gray-700"
             >
               Edit profile
             </Link>

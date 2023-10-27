@@ -8,7 +8,7 @@ function Loading() {
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="bg-gray-200 animate-pulse rounded-md w-full aspect-square"
+            className="bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-full aspect-square"
           />
         ))}
       </div>

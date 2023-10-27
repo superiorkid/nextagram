@@ -82,7 +82,7 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
         {variant === "MOBILE" ? (
           <GoPlusCircle className="w-6 h-6" />
         ) : (
-          <button className="t  ext-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md text-left outline-none">
+          <button className="t  ext-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md text-left outline-none dark:hover:bg-gray-700">
             <GoPlusCircle className="w-6 h-6 inline mr-2.5" />
             Create
           </button>

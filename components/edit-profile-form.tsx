@@ -72,7 +72,7 @@ const EditProfileForm = ({ currentUser }: Props) => {
       <div className="flex space-x-8 items-center">
         <label className="w-32 text-end font-semibold text-sm">Full Name</label>
         <input
-          className="flex-1 border text-sm rounded-md placeholder:text-sm px-3 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-0"
+          className="flex-1 border text-sm rounded-md placeholder:text-sm px-3 py-1 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-0"
           placeholder="Full Name"
           {...register("fullName")}
         />
@@ -80,7 +80,7 @@ const EditProfileForm = ({ currentUser }: Props) => {
       <div className="flex space-x-8 items-center">
         <label className="w-32 text-end font-semibold text-sm">Website</label>
         <input
-          className="flex-1 border text-sm rounded-md placeholder:text-sm px-3 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-0"
+          className="flex-1 border text-sm rounded-md placeholder:text-sm px-3 py-1 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-0"
           placeholder="Website"
           {...register("website")}
         />
@@ -89,7 +89,7 @@ const EditProfileForm = ({ currentUser }: Props) => {
         <label className="w-32 text-end font-semibold text-sm">Bio</label>
         <textarea
           placeholder="Bio"
-          className="flex-1 border text-sm rounded-md placeholder:text-sm px-3 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-0 h-28 resize-y"
+          className="flex-1 border text-sm rounded-md placeholder:text-sm px-3 py-1 focus:outline-none focus:ring-2 dark:bg-gray-700 focus:ring-sky-500 focus:ring-offset-0 h-28 resize-y"
           {...register("bio")}
         />
       </div>
@@ -98,7 +98,7 @@ const EditProfileForm = ({ currentUser }: Props) => {
         <label className="w-32 text-end font-semibold text-sm">Gender</label>
         <div>
           <select
-            className="w-full bg-white border p-1.5 rounded-md space-y-3"
+            className="w-full bg-white border dark:bg-gray-700 p-1.5 rounded-md space-y-3"
             {...register("gender")}
           >
             {genderOptions.map((option, index) => (
@@ -119,7 +119,7 @@ const EditProfileForm = ({ currentUser }: Props) => {
           type="submit"
           disabled={!isDirty || isPending}
           className={cn(
-            "bg-sky-500 rounded-lg text-sm font-bold py-1 px-5 text-white",
+            "bg-sky-500 rounded-lg text-sm font-bold py-1 px-5 text-white dark:bg-gray-700",
             (isPending || !isDirty) && "bg-gray-300"
           )}
         >

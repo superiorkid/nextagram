@@ -57,7 +57,10 @@ const CommentForm = ({ inputStyles, buttonStyles, postId }: Props) => {
       <input
         placeholder="Add a comment..."
         {...register("content", { onChange: handleChange })}
-        className={cn("w-full pr-3 py-1 focus:outline-none", inputStyles)}
+        className={cn(
+          "w-full pr-3 py-1 focus:outline-none dark:bg-transparent",
+          inputStyles
+        )}
         disabled={isPending}
       />
       <button

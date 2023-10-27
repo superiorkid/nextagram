@@ -35,7 +35,7 @@ const OtherMenu = () => {
     <div className="space-y-1">
       <ChangeThemeButton />
       <DropdownMenu>
-        <DropdownMenuTrigger className="text-base text-left font-light hover:bg-gray-100 py-2.5 px-3 rounded-md w-full focus:outline-none">
+        <DropdownMenuTrigger className="text-base text-left font-light hover:bg-gray-100 py-2.5 px-3 rounded-md w-full focus:outline-none dark:hover:bg-gray-700">
           <RxHamburgerMenu className="w-6 h-6 inline mr-2.5 " />
           More
         </DropdownMenuTrigger>

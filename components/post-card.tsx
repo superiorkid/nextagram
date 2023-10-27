@@ -97,7 +97,7 @@ const PostCard = async ({ post, currentUser }: Props) => {
                 </p>
               </div>
               {post.location && (
-                <p className="text-xs text-gray-600 font-light tracking-wide">
+                <p className="text-xs text-gray-600 font-light tracking-wide dark:text-gray-400">
                   {post.location}
                 </p>
               )}

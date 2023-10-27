@@ -92,7 +92,7 @@ async function UserDetailPage({ params: { name } }: Props) {
             ))}
           </section>
 
-          <section className="border-t-2 border-gray-300">
+          <section className="border-t-2 border-gray-300 dark:border-gray-700">
             <div className="flex justify-center">
               <h2 className="shadow-sm font-bold uppercase text-sm tracking-wide py-3">
                 <MdGridOn className="w-4 h-4 inline self-center mr-0.5" />

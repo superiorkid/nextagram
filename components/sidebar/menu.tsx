@@ -15,21 +15,21 @@ const Menu = ({ currentUser }: Props) => {
     <nav className="flex flex-col space-y-3">
       <Link
         href="/"
-        className="text-base font-bold hover:bg-gray-100 py-2.5 px-3 rounded-md"
+        className="text-base font-bold hover:bg-gray-100 dark:hover:bg-gray-700 py-2.5 px-3 rounded-md"
       >
         <GoHomeFill className="w-6 h-6 inline mr-2.5" />
         Home
       </Link>
       <Link
         href="/search"
-        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md dark:hover:bg-gray-700"
       >
         <GoSearch className="w-6 h-6 inline mr-2.5" />
         Search
       </Link>
       <Link
         href="/explore"
-        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md dark:hover:bg-gray-700"
       >
         <FiCompass className="w-6 h-6 inline mr-2.5" />
         Explore
@@ -39,7 +39,7 @@ const Menu = ({ currentUser }: Props) => {
 
       <Link
         href={`/${currentUser?.name}`}
-        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md flex items-center"
+        className="text-base font-light hover:bg-gray-100 py-2.5 px-3 rounded-md flex items-center dark:hover:bg-gray-700"
       >
         <div className="relative h-6 w-6 mr-2.5">
           <Image
