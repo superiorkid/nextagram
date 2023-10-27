@@ -35,10 +35,10 @@ const AuthPage = async ({ searchParams: { variant } }: Props) => {
 
   return (
     <React.Fragment>
-      <div className="border border-gray-300 pt-7 pb-6 px-10 mb-3">
+      <div className="border border-gray-300 dark:border-gray-700 pt-7 pb-6 px-10 mb-3">
         {variant === "register" ? <Register /> : <Login />}
       </div>
-      <div className="p-5 border border-gray-300 mb-4">
+      <div className="p-5 border border-gray-300 dark:border-gray-700 mb-4">
         <p className="text-center text-sm">
           {variant !== "register"
             ? "Dont have an account? "

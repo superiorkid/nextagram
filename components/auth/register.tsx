@@ -7,7 +7,7 @@ const Register = () => {
   return (
     <React.Fragment>
       <Logo className="h-[44px] mt-5 mb-7" />
-      <p className="text-lg font-bold text-gray-500 text-center mb-3 leading-tight">
+      <p className="text-lg font-bold text-gray-500 dark:text-gray-400 text-center mb-3 leading-tight">
         Sign up to see photos from your friends.
       </p>
       <SocialLogin
@@ -21,7 +21,9 @@ const Register = () => {
           <div className="w-full border-t border-gray-300" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-white px-2 text-gray-500 font-bold">OR</span>
+          <span className="bg-white dark:bg-black dark:text-white px-2 text-gray-500 font-bold">
+            OR
+          </span>
         </div>
       </div>
 

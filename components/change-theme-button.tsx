@@ -18,7 +18,7 @@ function ChangeThemeButton() {
 
   return (
     <button
-      className="text-base text-left font-light hover:bg-gray-100 py-2.5 px-3 rounded-md w-full focus:outline-none dark:hover:bg-gray-700"
+      className="text-base text-left font-light hover:bg-gray-100 py-2.5 px-3 rounded-md w-full focus:outline-none dark:hover:bg-gray-700 transition-all duration-1000"
       onClick={handleThemeChange}
     >
       {theme === "light" ? (

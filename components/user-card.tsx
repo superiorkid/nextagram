@@ -51,7 +51,9 @@ const UserCard = async ({ user }: Props) => {
             <Link href={`/${user.name}`} className="font-bold tracking-wide">
               {user.name}
             </Link>
-            <p className="text-gray-500 text-xs">Followed by _danu.ar</p>
+            <p className="text-gray-500 text-xs dark:text-gray-400">
+              Followed by _danu.ar
+            </p>
           </div>
         </div>
       </UserTooltip>

@@ -50,7 +50,7 @@ const RegisterForm = () => {
             disabled={isPending}
             placeholder="Email"
             className={cn(
-              "auth-input",
+              "auth-input dark:text-gray-800",
               isPending && "text-gray-300",
               errors.email && "border-rose-500"
             )}
@@ -64,7 +64,7 @@ const RegisterForm = () => {
             disabled={isPending}
             placeholder="Full Name"
             className={cn(
-              "auth-input",
+              "auth-input dark:text-gray-800",
               isPending && "text-gray-300",
               errors.fullName && "border-rose-500"
             )}
@@ -80,7 +80,7 @@ const RegisterForm = () => {
             disabled={isPending}
             placeholder="Username"
             className={cn(
-              "auth-input",
+              "auth-input dark:text-gray-800",
               isPending && "text-gray-300",
               errors.username && "border-rose-500"
             )}
@@ -97,7 +97,7 @@ const RegisterForm = () => {
             type="password"
             placeholder="Password"
             className={cn(
-              "auth-input",
+              "auth-input dark:text-gray-800",
               isPending && "text-gray-300",
               errors.password && "border-rose-500"
             )}
@@ -109,7 +109,7 @@ const RegisterForm = () => {
         </div>
       </div>
 
-      <div className="text-xs text-center space-y-2.5 text-gray-500 my-3">
+      <div className="text-xs text-center space-y-2.5 text-gray-500 dark:text-gray-400 my-3">
         <p>
           People who use our service may have uploaded your contact information
           to Instagram.{" "}

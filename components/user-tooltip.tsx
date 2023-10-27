@@ -91,7 +91,7 @@ async function UserTooltip({ children, user }: Props) {
                   <FaCameraRetro className="w-8 h-8 fill-pink-500" />
                   <div className="text-center max-w-[280px]">
                     <h3 className="font-bold text-lg">No posts yet</h3>
-                    <p className="text-gray-600 font-light">
+                    <p className="text-gray-600 dark:text-gray-400 font-light">
                       when {user.name} shares photos, you{"'"}ll see them here.
                     </p>
                   </div>
@@ -114,7 +114,7 @@ async function UserTooltip({ children, user }: Props) {
                     <h3 className="font-bold text-lg">
                       This account is private
                     </h3>
-                    <p className="text-gray-600 font-light">
+                    <p className="text-gray-600 font-light dark:text-gray-400">
                       Follow this account to see their photos.
                     </p>
                   </div>

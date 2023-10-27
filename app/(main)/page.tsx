@@ -80,7 +80,9 @@ export default async function Home() {
 
             <div className="text-sm">
               <p className="font-bold tracking-wide">{currentUser?.name}</p>
-              <p className="text-gray-500">{currentUser?.email}</p>
+              <p className="text-gray-500 dark:text-gray-400">
+                {currentUser?.email}
+              </p>
             </div>
           </div>
 

@@ -55,7 +55,7 @@ const LoginForm = () => {
           disabled={isLoading}
           placeholder="Email"
           className={cn(
-            "auth-input",
+            "auth-input dark:text-gray-800",
             isLoading && "text-gray-300",
             errors.email && "border-rose-500"
           )}
@@ -70,7 +70,7 @@ const LoginForm = () => {
           disabled={isLoading}
           placeholder="Password"
           className={cn(
-            "auth-input",
+            "auth-input dark:text-gray-800",
             isLoading && "text-gray-300",
             errors.password && "border-rose-500"
           )}
