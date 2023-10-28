@@ -54,10 +54,6 @@ function CommentLikeButton({ comment, currentUser }: Props) {
     });
   };
 
-  useEffect(() => {
-    console.log(optimisticLikes);
-  }, [optimisticLikes, updateOptimisticLikes]);
-
   return (
     <button
       type="button"

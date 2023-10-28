@@ -16,7 +16,6 @@ import Link from "next/link";
 import React from "react";
 import ThemeButton from "@/components/theme-button";
 import { MdLogout } from "react-icons/md";
-import dynamic from "next/dynamic";
 
 const OtherMenu = () => {
   const router = useRouter();
@@ -59,7 +58,7 @@ const OtherMenu = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {/*<ThemeButton />*/}
+      <ThemeButton />
     </div>
   );
 };
