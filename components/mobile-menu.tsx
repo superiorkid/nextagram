@@ -19,7 +19,7 @@ function MobileMenu({ currentUser }: Props) {
       <Link href="/search">
         <GoSearch className="w-7 h-7" />
       </Link>
-      <Link href="#">
+      <Link href="/explore">
         <FiCompass className="w-7 h-7 " />
       </Link>
 

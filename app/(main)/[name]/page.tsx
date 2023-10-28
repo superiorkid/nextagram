@@ -36,6 +36,24 @@ export async function generateMetadata({ params: { name } }: Props) {
         siteName: "Nextagram",
         locale: "en_US",
         type: "website",
+        images: [
+          {
+            url: `${
+              user?.image ??
+              `https://api.dicebear.com/7.x/micah/png?seed=${user?.email}`
+            }`,
+            width: 800,
+            height: 600,
+          },
+          {
+            url: `${
+              user?.image ??
+              `https://api.dicebear.com/7.x/micah/png?seed=${user?.email}`
+            }`,
+            width: 1800,
+            height: 1600,
+          },
+        ],
       },
     };
   } catch (e) {

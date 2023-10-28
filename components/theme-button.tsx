@@ -5,7 +5,7 @@ import { FaRegMoon } from "react-icons/fa";
 import { useTheme } from "next-themes";
 import { MdSunny } from "react-icons/md";
 
-function ChangeThemeButton() {
+function ThemeButton() {
   const { setTheme, theme } = useTheme();
 
   const handleThemeChange = useCallback(() => {
@@ -18,22 +18,17 @@ function ChangeThemeButton() {
 
   return (
     <button
-      className="text-base text-left font-light hover:bg-gray-100 py-2.5 px-3 rounded-md w-full focus:outline-none dark:hover:bg-gray-700 transition-all duration-1000"
+      className="text-base text-left font-light hover:bg-gray-100 py-2.5 px-3 rounded-md w-full focus:outline-none dark:hover:bg-gray-700 transition-all duration-1000 capitalize"
       onClick={handleThemeChange}
     >
       {theme === "light" ? (
-        <>
-          <FaRegMoon className="w-5 h-5 inline mr-3" />
-          Dark
-        </>
+        <MdSunny className="h-5 w-5 inline mr-3" />
       ) : (
-        <>
-          <MdSunny className="w-5 h-5 inline mr-3" />
-          Light
-        </>
-      )}
+        <FaRegMoon className="h-5 w-5 inline mr-3" />
+      )}{" "}
+      {theme}
     </button>
   );
 }
 
-export default ChangeThemeButton;
+export default ThemeButton;

@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/providers/theme-provider";
+import React from "react";
 
 const helvetica = localFont({ src: "./Helvetica.woff2" });
 
@@ -34,13 +35,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={helvetica.className}>
+        <ToastProvider />
         <ThemeProvider
           enableSystem
           disableTransitionOnChange
           attribute="class"
           defaultTheme="system"
         >
-          <ToastProvider />
           {children}
         </ThemeProvider>
       </body>

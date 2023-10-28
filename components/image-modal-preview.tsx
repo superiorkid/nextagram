@@ -42,7 +42,7 @@ const ImageModalPreview = ({ images }: Props) => {
           <div className="relative h-[90dvh]">
             <Image
               fill
-              src={image.path.replace("public", "")}
+              src={image.path}
               alt="image example"
               className="object-contain"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -14,8 +14,9 @@ import { GoGear } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
 import React from "react";
-import { FaRegMoon } from "react-icons/fa";
-import ChangeThemeButton from "@/components/change-theme-button";
+import ThemeButton from "@/components/theme-button";
+import { MdLogout } from "react-icons/md";
+import dynamic from "next/dynamic";
 
 const OtherMenu = () => {
   const router = useRouter();
@@ -53,11 +54,12 @@ const OtherMenu = () => {
             className="text-base hover:font-bold hover:bg-gray-100 py-2.5 hover:cursor-pointer"
             onClick={handleLogout}
           >
+            <MdLogout className="w-5 h-5 inline mr-2.5" />
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ChangeThemeButton />
+      <ThemeButton />
     </div>
   );
 };

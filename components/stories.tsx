@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import SlideNextButton from "./slide-next-button";
 import SlidePrevButton from "./slide-prev-button";
+import toast from "react-hot-toast";
 
 const Stories = () => {
   return (
@@ -23,7 +24,8 @@ const Stories = () => {
           spaceBetween: 5,
         },
       }}
-      className="mb-14"
+      className="mb-14 hover:cursor-pointer"
+      onClick={() => toast("This feature not ready!!!")}
     >
       <SlidePrevButton className="absolute left-1 top-1/2 -translate-y-3/4 z-10 bg-white text-gray-800 rounded-full hover:bg-gray-200 hover:text-gray-500" />
       <SlideNextButton className="absolute right-1 top-1/2 -translate-y-3/4 z-10 bg-white text-gray-800 rounded-full hover:bg-gray-200 hover:text-gray-500" />

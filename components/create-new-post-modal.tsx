@@ -171,7 +171,7 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
                 <textarea
                   placeholder="Write a caption..."
                   className={cn(
-                    "w-full h-[15dvh] focus:outline-none p-1 resize-none text-sm",
+                    "w-full h-[15dvh] focus:outline-none p-1 resize-none text-sm dark:bg-gray-900",
                     errors.caption && "placeholder:text-rose-300"
                   )}
                   {...register("caption")}
@@ -183,7 +183,9 @@ function CreateNewPostModal({ currentUser, variant = "DESKTOP" }: Props) {
               <div className="border-b-2">
                 <input
                   placeholder="Type Location (Optional)"
-                  className={cn("focus:outline-none px-1 py-2 text-sm  w-full")}
+                  className={cn(
+                    "focus:outline-none px-1 py-2 text-sm  w-full dark:bg-gray-900"
+                  )}
                   disabled={isPending}
                   {...register("location")}
                 />
