@@ -75,6 +75,12 @@ export const getUser = async (name: string) => {
             commentedByUsers: {
               include: {
                 user: true,
+                commentLikes: true,
+                _count: {
+                  select: {
+                    commentLikes: true,
+                  },
+                },
               },
             },
             likedByUsers: true,

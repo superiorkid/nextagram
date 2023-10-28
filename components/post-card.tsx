@@ -35,7 +35,15 @@ interface Props {
       };
       likedByUsers: true;
       commentedByUsers: {
-        include: { user: true };
+        include: {
+          user: true;
+          commentLikes: true;
+          _count: {
+            select: {
+              commentLikes: true;
+            };
+          };
+        };
       };
       _count: {
         select: { likedByUsers: true; commentedByUsers: true };
