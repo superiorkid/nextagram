@@ -83,6 +83,12 @@ export const getPosts = async (display: number) => {
         commentedByUsers: {
           include: {
             user: true,
+            commentLikes: true,
+            _count: {
+              select: {
+                commentLikes: true,
+              },
+            },
           },
         },
         _count: {

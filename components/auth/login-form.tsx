@@ -39,7 +39,7 @@ const LoginForm = () => {
 
         if (callback?.ok && !callback.error) {
           toast.success("Logged in");
-          router.push("/");
+          router.refresh();
         }
       })
       .finally(() => {
