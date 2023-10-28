@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useTransition, useOptimistic, useEffect, useMemo } from "react";
+import React, { useMemo, useOptimistic, useTransition } from "react";
 import { commentDislike, commentLike } from "@/_actions/comment.action";
 import { CommentLikes, Prisma, User } from "@prisma/client";
 import { cn } from "@/lib/utils";

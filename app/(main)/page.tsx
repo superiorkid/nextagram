@@ -7,7 +7,6 @@ import Logo from "@/components/logo";
 import PostCard from "@/components/post-card";
 import Stories from "@/components/stories";
 import { Metadata } from "next";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import React from "react";
 import SuggestUserSide from "@/components/suggest-user-side";
