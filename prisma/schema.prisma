@@ -60,6 +60,8 @@ model User {
   followers      Follows[]      @relation("following")
   following      Follows[]      @relation("follower")
   commentLikes   CommentLikes[]
+  stories        Stories[]
+  storyViews     StoryViews[]
 
   @@unique([name, email])
 }
@@ -77,6 +79,27 @@ model Post {
 
   likedByUsers     Likes[]
   commentedByUsers Comments[]
+}
+
+model Stories {
+  id         String       @id @default(cuid())
+  authorId   String
+  media_url  String
+  postedAt   DateTime     @default(now())
+  expiresAt  DateTime     @default(dbgenerated("NOW() + interval '1 DAYS'"))
+  caption    String?
+  storyViews StoryViews[]
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model StoryViews {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  stories   Stories @relation(fields: [storiesId], references: [id])
+  storiesId String
+
+  @@id([userId, storiesId])
 }
 
 model Image {
