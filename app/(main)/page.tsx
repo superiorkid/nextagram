@@ -10,6 +10,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import React from "react";
 import SuggestUserSide from "@/components/suggest-user-side";
+import { getStories } from "@/_actions/stories.action";
 
 export const metadata: Metadata = {
   title: "Nextagram | instagram clone",
@@ -30,6 +31,7 @@ export default async function Home() {
   const currentUser = await getCurrentUser();
   const suggestedUsers = await getSuggestedUsers();
   const posts = await getPostsByFollowing(currentUser?.id as string);
+  const stories = await getStories();
 
   if (!currentUser?.emailVerified) {
     redirect("/verification");
@@ -43,7 +45,7 @@ export default async function Home() {
           <div className="my-6 lg:hidden">
             <Logo className="h-[7dvh]" />
           </div>
-          <Stories />
+          <Stories stories={stories} />
           <div className="max-w-md mx-auto space-y-5 divide-y-2">
             {!posts.length ? (
               <div className="bg-rose-100 p-5 rounded-md">
