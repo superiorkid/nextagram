@@ -45,7 +45,9 @@ export default async function Home() {
           <div className="my-6 lg:hidden">
             <Logo className="h-[7dvh]" />
           </div>
+
           <Stories stories={stories} />
+
           <div className="max-w-md mx-auto space-y-5 divide-y-2">
             {!posts.length ? (
               <div className="bg-rose-100 p-5 rounded-md">

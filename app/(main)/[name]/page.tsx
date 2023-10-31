@@ -105,7 +105,7 @@ async function UserDetailPage({ params: { name } }: Props) {
             {Array.from({ length: 4 }).map((_, index) => (
               <div className="flex flex-col items-center space-y-2" key={index}>
                 <div className="w-16 h-16 rounded-full bg-sky-500 ring-2 ring-offset-2 ring-pink-500" />
-                <p className="text-xs font-bold">Story {index}</p>
+                <p className="text-xs font-bold">Collections {index + 1}</p>
               </div>
             ))}
           </section>

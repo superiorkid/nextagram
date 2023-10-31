@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import React from "react";
-import MainMenu from "@/components/main-menu";
+import MainMenu from "../main-menu";
 
 interface Props {
   currentUser: User | null;

@@ -2,9 +2,16 @@ import prisma from "@/lib/prisma";
 
 export async function getStories() {
   try {
-    const stories = await prisma.stories.findMany({
+    const stories = await prisma.user.findMany({
+      where: {
+        NOT: {
+          stories: {
+            none: {},
+          },
+        },
+      },
       include: {
-        author: true,
+        stories: true,
       },
     });
 

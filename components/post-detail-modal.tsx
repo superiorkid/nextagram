@@ -9,7 +9,6 @@ import CommentForm from "./comment-form";
 import { Separator } from "./ui/separator";
 import ImageModalPreview from "./image-modal-preview";
 import Link from "next/link";
-import CommentLikeButton from "@/components/comment-like-button";
 import CommentCard from "@/components/comment-card";
 
 interface Props {
@@ -121,7 +120,11 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
                   {/* comments */}
                   <div className="space-y-3">
                     {post?.commentedByUsers.map((comment, index) => (
-                      <CommentCard key={index} comment={comment} currentUser={currentUser} />
+                      <CommentCard
+                        key={index}
+                        comment={comment}
+                        currentUser={currentUser}
+                      />
                     ))}
                   </div>
                 </div>
@@ -142,8 +145,8 @@ const PostDetailModal = ({ currentUser, post, children }: Props) => {
                     {post._count.likedByUsers} like
                     {post._count.likedByUsers > 1 && "s"}
                   </p>
-                  <p className="text-xs text-gray-600 font-medium tracking-wide">
-                    2 HOURS AGO
+                  <p className="text-xs text-gray-600 font-medium tracking-wide uppercase">
+                    {fromNow(post.createdAt.toString())}
                   </p>
                 </div>
 
