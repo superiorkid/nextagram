@@ -33,6 +33,7 @@ function SuggestUserSide({ suggestedUsers, currentUser }: Props) {
         <div className="w-12 h-12 relative">
           <Image
             fill
+            loading="lazy"
             src={
               currentUser?.image ??
               `https://api.dicebear.com/7.x/micah/png?seed=${currentUser?.email}`

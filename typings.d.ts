@@ -1,3 +1,5 @@
+import { Stories, User } from "@prisma/client";
+
 interface ITag {
   id: string;
   text: string;
@@ -11,4 +13,9 @@ type MasonryProps<T> = React.ComponentPropsWithoutRef<"div"> & {
     gap: number | number[];
     media?: number[];
   };
+};
+
+type MergedData = {
+  author: User;
+  stories: Stories[];
 };
