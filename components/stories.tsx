@@ -1,26 +1,20 @@
 "use client";
 
-import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SlideNextButton from "./slide-next-button";
 import SlidePrevButton from "./slide-prev-button";
 import StoryView from "./story-view";
+import { MergedData } from "@/typings";
+import { cn } from "@/lib/utils";
 
 import "swiper/css";
-import { haveSeen } from "@/_actions/stories.action";
-import { cn } from "@/lib/utils";
-import { MergedData } from "@/typings";
 
 interface Props {
   stories: MergedData[];
 }
 
 const Stories = ({ stories }: Props) => {
-  const alreadySeen = async (storyId: string) => {
-    await haveSeen(storyId);
-  };
-
   return (
     <Swiper
       spaceBetween={5}

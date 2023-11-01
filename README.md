@@ -1,18 +1,18 @@
-## Nextagram - Instagram Clone
+# Nextagram - Instagram Clone
 
 Built with the Next.js App Router, Typescript and Tailwind
-
 
 ### Features
 
 - Authentication using Discord & Credentials with email validation
 - Infinite scroll for dynamic loading posts
-- Follow & unfollow user
-- Like & dislike post
+- Follow & unfollow user with optimistic update UI
+- Like & dislike post with optimistic update UI
 - Full comment functionality
 - Create new post & story for authentication users
 - Image upload and image preview
 - Server action
+- Better SEO (_i think so_)
 - ... and much more
 
 ### Getting Started

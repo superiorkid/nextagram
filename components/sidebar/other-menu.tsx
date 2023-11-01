@@ -58,7 +58,7 @@ const OtherMenu = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {/*<ThemeButton />*/}
+      <ThemeButton />
     </div>
   );
 };

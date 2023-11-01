@@ -16,6 +16,9 @@ export async function getStories() {
       include: {
         author: true,
       },
+      orderBy: {
+        postedAt: "desc",
+      },
     });
 
     const mergedData: Record<string, MergedData> = {};
