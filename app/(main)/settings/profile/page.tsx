@@ -47,7 +47,7 @@ async function ProfilePage() {
           </div>
           <div className="flex-1 leading-tight">
             <h3 className="font-black">{currentUser?.name}</h3>
-            <ChangeProfilePhoto />
+            <ChangeProfilePhoto currentUser={currentUser} />
           </div>
         </div>
         <EditProfileForm currentUser={currentUser} />

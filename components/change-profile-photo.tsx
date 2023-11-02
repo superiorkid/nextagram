@@ -17,8 +17,13 @@ import {
   removeProfilePhoto,
 } from "@/_actions/user.action";
 import toast from "react-hot-toast";
+import { User } from "@prisma/client";
 
-function ChangeProfilePhoto() {
+interface Props {
+  currentUser: User | null;
+}
+
+function ChangeProfilePhoto({ currentUser }: Props) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [files, setFiles] = useState<(File & { preview: string })[]>();
 
@@ -118,13 +123,15 @@ function ChangeProfilePhoto() {
                   upload photo
                 </button>
               </div>
-              <button
-                type="button"
-                className="border-b rounded-md w-full capitalize text-sm text-rose-500 hover:text-rose-600 font-bold tracking-wide py-3"
-                onClick={removeCurrentProfileHandler}
-              >
-                remove current photo
-              </button>
+              {currentUser?.image && (
+                <button
+                  type="button"
+                  className="border-b rounded-md w-full capitalize text-sm text-rose-500 hover:text-rose-600 font-bold tracking-wide py-3"
+                  onClick={removeCurrentProfileHandler}
+                >
+                  remove current photo
+                </button>
+              )}
             </React.Fragment>
           ) : (
             <div className="aspect-square relative">
