@@ -8,7 +8,7 @@ Built with the Next.js App Router, Typescript and Tailwind
 
 ### Features
 
-- Authentication using Discord & Credentials with email validation
+- Authentication using Discord & Credentials with email verification
 - Follow & unfollow user with optimistic update UI
 - Like & dislike post with optimistic update UI
 - Full comment functionality
