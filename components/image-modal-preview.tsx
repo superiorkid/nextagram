@@ -19,6 +19,7 @@ interface Props {
 const ImageModalPreview = ({ images }: Props) => {
   return (
     <Swiper
+      loop
       spaceBetween={10}
       slidesPerView={1}
       allowTouchMove={false}

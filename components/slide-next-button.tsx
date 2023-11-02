@@ -15,9 +15,13 @@ export default function SlideNextButton({ className, iconSize = "6" }: Props) {
 
   return (
     <button
+      disabled={!swiper.allowSlideNext}
       type="button"
       onClick={() => swiper.slideNext()}
-      className={cn(`${className} opacity-50 hover:opacity-100`)}
+      className={cn(
+        `${className} opacity-50 hover:opacity-100`,
+        !swiper.allowSlideNext && "hidden"
+      )}
       aria-label="next slide button"
     >
       <IoIosArrowDropright className={`w-${iconSize} h-${iconSize}`} />

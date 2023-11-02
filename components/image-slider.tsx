@@ -19,6 +19,7 @@ interface Props {
 const ImageSlider = ({ images }: Props) => {
   return (
     <Swiper
+      loop
       spaceBetween={5}
       slidesPerView={1}
       modules={[Pagination]}
