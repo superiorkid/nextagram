@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { getSearchUsers } from "@/_actions/user.action";
 import { Prisma, User } from "@prisma/client";
-import UserCard from "@/components/user-card";
+import Image from "next/image";
+import Link from "next/link";
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -69,8 +70,33 @@ function Search() {
         {debouncedSearchTerm &&
           (results.length ? (
             <div className="space-y-2">
-              {results.map((user) => (
-                <UserCard user={user} key={user.id} />
+              {results.map((user, index) => (
+                <div className="flex space-x-2.5 items-center" key={index}>
+                  <div className="relative w-12 h-12">
+                    <Image
+                      fill
+                      src={
+                        user?.image ??
+                        `https://api.dicebear.com/7.x/micah/png?seed=${user?.email}`
+                      }
+                      alt={`${user.name} photo`}
+                      className="object-cover rounded-full"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+
+                  <div className="text-sm">
+                    <Link
+                      href={`/${user.name}`}
+                      className="font-bold tracking-wide"
+                    >
+                      {user.name}
+                    </Link>
+                    <p className="text-gray-500 text-xs dark:text-gray-400">
+                      Followed by _danu.ar
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           ) : (
