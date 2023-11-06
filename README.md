@@ -23,6 +23,7 @@ Built with the Next.js App Router, Typescript and Tailwind
 - Infinite scroll for dynamic loading posts
 - Nested comment
 - Responsive design
+- create story feature
 - ...
 
 ### Getting Started
