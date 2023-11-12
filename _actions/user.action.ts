@@ -327,3 +327,28 @@ export const getCurrentUserPost = async () => {
     throw new Error("failed to fetch posts");
   }
 };
+
+export const getUserStatistic = async () => {
+  const currentUser = await getCurrentUser();
+
+  try {
+    const statistics = await prisma.user.findFirst({
+      where: {
+        email: currentUser?.email!,
+      },
+      select: {
+        _count: {
+          select: {
+            posts: true,
+            followers: true,
+            following: true,
+          },
+        },
+      },
+    });
+
+    return statistics;
+  } catch (e) {
+    throw new Error("failed to get statistics");
+  }
+};

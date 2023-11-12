@@ -12,6 +12,20 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { DropdownMenu, DropdownMenuItem } from "../ui/dropdown-menu";
+import { useTransition } from "react";
+import { deletePost } from "@/_actions/post.action";
+import toast from "react-hot-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export const postColumns: ColumnDef<
   Prisma.PostGetPayload<{ include: { images: true } }>
@@ -67,10 +81,23 @@ export const postColumns: ColumnDef<
     },
   },
   {
-    id: "actions",
+    accessorKey: "id",
+    header: "Actions",
     cell: ({ row }) => {
+      const id = row.getValue("id") as string;
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [isPending, startTransition] = useTransition();
+
       const handleDelete = () => {
-        console.log("delete btn clicked!!!");
+        startTransition(async () => {
+          await deletePost(id)
+            .then(() => {
+              toast.success("post deleted successfully.");
+            })
+            .catch(() => {
+              toast.error("failed to delete post");
+            });
+        });
       };
 
       return (
@@ -84,12 +111,33 @@ export const postColumns: ColumnDef<
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem asChild>
-              <button
-                onClick={handleDelete}
-                className="w-full hover:cursor-pointer"
-              >
-                Delete
-              </button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button className="w-full p-2 text-left text-sm hover:bg-gray-100">
+                    Delete
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-rose-500"
+                      onClick={handleDelete}
+                    >
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

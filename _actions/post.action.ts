@@ -175,3 +175,19 @@ export const getPostsByFollowing = async (userId: string) => {
     },
   });
 };
+
+export const deletePost = async (id: string) => {
+  try {
+    await prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+
+    revalidateTag("post");
+
+    return "delete successfully";
+  } catch (error) {
+    throw new Error("failed to delete post");
+  }
+};

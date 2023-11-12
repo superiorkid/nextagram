@@ -4,9 +4,11 @@ import { TiSocialInstagram } from "react-icons/ti";
 import { SlUserFollowing } from "react-icons/sl";
 import { GiShadowFollower } from "react-icons/gi";
 import PostTable from "@/components/dashboard/post-table";
+import { getUserStatistic } from "@/_actions/user.action";
 
 async function DashboardPage() {
   const currentUser = await getCurrentUser();
+  const statistics = await getUserStatistic();
 
   if (!currentUser?.emailVerified) {
     redirect("/verification");
@@ -22,7 +24,9 @@ async function DashboardPage() {
             </span>
             <TiSocialInstagram className="w-5 h-5" />
           </div>
-          <h1 className="mt-3 text-3xl font-black">19</h1>
+          <h1 className="mt-3 text-3xl font-black">
+            {statistics?._count.posts}
+          </h1>
         </div>
         <div className="border shadow-sm h-[118px] rounded-md p-5">
           <div className="flex justify-between">
@@ -31,7 +35,9 @@ async function DashboardPage() {
             </span>
             <SlUserFollowing className="w-5 h-5" />
           </div>
-          <h1 className="mt-3 text-3xl font-black">54</h1>
+          <h1 className="mt-3 text-3xl font-black">
+            {statistics?._count.following}
+          </h1>
         </div>
         <div className="border shadow-sm h-[118px] rounded-md p-5">
           <div className="flex justify-between">
@@ -40,7 +46,9 @@ async function DashboardPage() {
             </span>
             <GiShadowFollower className="w-5 h-5" />
           </div>
-          <h1 className="mt-3 text-3xl font-black">109</h1>
+          <h1 className="mt-3 text-3xl font-black">
+            {statistics?._count.followers}
+          </h1>
         </div>
       </section>
 
