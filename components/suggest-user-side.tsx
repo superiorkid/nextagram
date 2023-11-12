@@ -39,16 +39,18 @@ function SuggestUserSide({ suggestedUsers, currentUser }: Props) {
               `https://api.dicebear.com/7.x/micah/png?seed=${currentUser?.email}`
             }
             alt={`${currentUser?.name} photo`}
-            className="object-cover rounded-full"
+            className="object-cover rounded-full ring-offset-2 ring-2 ring-pink-300"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
 
         <div className="text-sm">
-          <p className="font-bold tracking-wide">{currentUser?.name}</p>
-          <p className="text-gray-500 dark:text-gray-400">
-            {currentUser?.email}
-          </p>
+          <Link href={`/${currentUser?.name}`}>
+            <p className="font-bold tracking-wide">{currentUser?.name}</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              {currentUser?.email}
+            </p>
+          </Link>
         </div>
       </div>
       <div>

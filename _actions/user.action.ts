@@ -308,3 +308,22 @@ export const followingStatus = async (userId: string) => {
 
   return followingIds.includes(userId);
 };
+
+export const getCurrentUserPost = async () => {
+  const currentUser = await getCurrentUser();
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: currentUser?.id,
+      },
+      include: {
+        images: true,
+      },
+    });
+
+    return posts;
+  } catch (e) {
+    throw new Error("failed to fetch posts");
+  }
+};

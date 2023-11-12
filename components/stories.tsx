@@ -9,7 +9,6 @@ import { MergedData } from "@/typings";
 import { cn } from "@/lib/utils";
 
 import "swiper/css";
-import { useRef } from "react";
 
 interface Props {
   stories: MergedData[];

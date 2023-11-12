@@ -15,7 +15,7 @@ function SettingsRoutes() {
           key={index}
           href={route.href}
           className={cn(
-            "hover:bg-gray-200/50 p-3 rounded-md text-sm",
+            "hover:bg-gray-200/50 p-2.5 rounded-md text-sm",
             route.isActive && "bg-gray-200/70 dark:bg-gray-800"
           )}
         >
